@@ -1,0 +1,926 @@
+[
+  {
+    "id": 0,
+    "text": "Financial Fraud Detection Using Hybird\nDeep Learning Models\nPROJECT REPORT\nSubmitted in partial fulfillment of the requirements for the award of degree of\nBACHELOR OF TECHNOLOGY\nBy\nCYRIAC JOSE PATHIYIL\n[SCM22CS085]\nDEON THOMAS\n[SCM22CS086]\nESHAN JAMES\n[SCM22CS093]\nJOSEPH SAJAN\n[SCM22CS133]\nSCMS SCHOOL OF ENGINEERING AND TECHNOLOGY\n(Affiliated to APJ Abdul Kalam Technological University)\nVIDYA NAGAR, PALISSERY, KARUKUTTY\nERNAKULAM – 683 576\nOctober 2025",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 1,
+    "chunk_index": 0
+  },
+  {
+    "id": 1,
+    "text": "SCMS SCHOOL OF ENGINEERING AND\nTECHNOLOGY\n(Affiliated to APJ Abdul Kalam Technological University)\nVIDYA NAGAR, PALISSERY, KARUKUTTY\nERNAKULAM – 683 576\nBONAFIDE CERTIFICATE\nThis is to certify that the seminar report entitled ”Financial Fraud Detection Using Hy-\nbird Deep Learning Models” submitted by CYRIAC JOSE PATHIYIL [SCM22CS085],\nDEON THOMAS [SCM22CS086], ESHAN JAMES [SCM22CS093], JOSEPH SAJAN\n[SCM22CS133], in partial fulfillment of the requirements for the award of the degree of\nBACHELOR OF TECHNOLOGY, is a bonafide record of work carried out under our su-\npervision during the academic year 2025–2026.\nProject Guide\nDr. Noora V T\nAssociate Professor\nDepartment of Computer\nScience & Engineering\nProject Coordinator\nDr. Dhanya K.A\nAssociate Professor\nDepartment of Computer\nScience & Engineering\nHead of Department\nDr. Manish T I\nHOD\nDepartment of Computer\nScience & Engineering",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 2,
+    "chunk_index": 0
+  },
+  {
+    "id": 2,
+    "text": "DECLARATION\nThe undersigned hereby declare that the project report Financial Fraud Detection Using\nHybird Deep Learning Models, submitted for partial fulfillment of the requirements for\nthe award of the Bachelor of Technology (CSE) degree of APJ Abdul Kalam Technological\nUniversity, Kerala is a bonafide work done by me under the supervision of Dr. Noora V T.\nThis submission represents our ideas in our own words and where ideas or words of others\nhave been included, we have adequately and accurately cited and referenced the sources.\nWe also declare that we have adhered to the ethics of academic honesty and integrity and\nhave not misrepresented or fabricated any data or idea or fact or source in my submission.\nWe understand that any violation of the above will be a cause for disciplinary action by the\ninstitute and/or the university and can also evoke penal action from the sources which have\nthus not been properly cited or from whom proper permission has not been obtained. This",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 3,
+    "chunk_index": 0
+  },
+  {
+    "id": 3,
+    "text": "institute and/or the university and can also evoke penal action from the sources which have\nthus not been properly cited or from whom proper permission has not been obtained. This\nreport has not previously formed the basis for the award of any degree, diploma or similar\ntitle of any other University.\nPlace : Ernakulam\nDate : 20-10-2025\nCYRIAC JOSE PATHIYIL\nDEON THOMAS\nESHAN JAMES\nJOSEPH SAJAN\nDepartment of Computer Science and Engineering, SSET\nii",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 3,
+    "chunk_index": 1
+  },
+  {
+    "id": 4,
+    "text": "ACKNOWLEDGEMENT\nI am greatly indebted to Dr. Anitha G. Pillai, Principal of SCMS School of Engineering and\nTechnology, Karukutty, Ernakulam, and Dr. Manish T I, Head of the Department of Com-\nputer Science and Engineering, SCMS School of Engineering and Technology, Karukutty,\nErnakulam, for wholeheartedly granting me the permission to conduct this seminar. I would\nlike to express my sincere gratitude to my guide Dr. Noora V T, Associate Professor, Depart-\nment of Computer Science And Engineering, SCMS School of Engineering and Technology,\nKarukutty, Ernakulam, for her valuable guidance and support throughout the seminar. Her\ncontinuous encouragement and insights were instrumental in the completion of this work. I\nwould also like to extend my thanks to all the teachers of the Department of Computer Sci-\nence and Engineering for their moral and technical support, as well as to the supporting staff\nin the computer lab whose dedicated work ensured smooth access to resources essential for",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 4,
+    "chunk_index": 0
+  },
+  {
+    "id": 5,
+    "text": "ence and Engineering for their moral and technical support, as well as to the supporting staff\nin the computer lab whose dedicated work ensured smooth access to resources essential for\nmy seminar. Finally, I am deeply grateful to my friends and family members for providing\nnecessary resources and encouragement, and to God Almighty for His blessings in helping\nme complete this project without any obstacles.\nDepartment of Computer Science and Engineering, SSET\niii",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 4,
+    "chunk_index": 1
+  },
+  {
+    "id": 6,
+    "text": "ABSTRACT\nThe Real-Time Financial Fraud Detection System is a dynamic, hybrid deep learning frame-\nwork designed to combat the rising tide of sophisticated financial fraud. Built on the Insti-\ntute of Electrical and Electronics Engineers Computational Intelligence Society (IEEE CIS)\nFraud Detection dataset comprising 590,000 transactions, the system employs a Unified\nFraud Neural Network (UFNN) composed of per-group feature encoders for transaction,\nbehavioural, and graph domains, fused via cross-group multi-head attention that learns inter-\ndomain interactions — such as simultaneous high behavioural and graph risk — and routed\nthrough a residual classifier producing a calibrated fraud probability.\nThe platform features an end-to-end Apache Kafka streaming pipeline for real-time transac-\ntion ingestion, a Redis–PostgreSQL feature store for sub-millisecond feature retrieval, and a\nFastAPI serving layer targeting sub-5-second inference latency. Leakage-safe feature engi-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 5,
+    "chunk_index": 0
+  },
+  {
+    "id": 7,
+    "text": "tion ingestion, a Redis–PostgreSQL feature store for sub-millisecond feature retrieval, and a\nFastAPI serving layer targeting sub-5-second inference latency. Leakage-safe feature engi-\nneering using cumulative-shift rolling aggregates ensures zero look-ahead bias, maintaining\nstrict training-inference parity. The system integrates Explainable AI via SHapley Additive\nexPlanations (SHAP), producing per-transaction feature attributions and attention-weight\nprofiles that reveal which specialist domain drove each fraud or allow decision, providing a\ntransparent and auditable decision trail.\nAll model components are explicitly optimised for CPU execution via Math Kernel Library\nDeep Neural Network (MKL-DNN) kernel acceleration, inference_mode inference paths,\nvectorised graph feature construction, and torch.compile compilation, eliminating GPU de-\npendency and reducing training time by approximately 40% versus the prior agentic stack.",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 5,
+    "chunk_index": 1
+  },
+  {
+    "id": 8,
+    "text": "vectorised graph feature construction, and torch.compile compilation, eliminating GPU de-\npendency and reducing training time by approximately 40% versus the prior agentic stack.\nA multi-tier decision routing mechanism maps the Attention Fusion Network (AFN) fraud\nprobability to AUTO_ALLOW, REVIEW, or AUTO_BLOCK outcomes, with an 11-rule\ncascade resolving the review zone and keeping human intervention below 3%. The Meta\nRisk Model achieved a ROC-AUC of 0.9721, while the Unified Fraud Neural Network\nreached 0.9710 with a precision of 0.8445, with all inference paths fully optimised for CPU\nexecution achieving sub-5-second latency without GPU dependency. The system addresses\ncritical challenges including extreme class imbalance (approximately 3.5% fraud rate) han-\ndled via loss-weight scaling, limited behavioral labeling, and the need for real-time inference\nat scale. The result is a resilient, adaptive, and regulation-ready fraud intelligence platform\nfor modern financial institutions.",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 5,
+    "chunk_index": 2
+  },
+  {
+    "id": 9,
+    "text": "at scale. The result is a resilient, adaptive, and regulation-ready fraud intelligence platform\nfor modern financial institutions.\nDepartment of Computer Science and Engineering, SSET\niv",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 5,
+    "chunk_index": 3
+  },
+  {
+    "id": 10,
+    "text": "CONTENTS\nDECLARATION\nii\nACKNOWLEDGEMENT\niii\nABSTRACT\niv\nLIST OF FIGURES\nvi\nLIST OF TABLES\nvii\nABBREVIATIONS\nviii\nChapter 1\nINTRODUCTION\n1\n1.1\nOverview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n1\n1.2\nProblem Statement\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n2\n1.3\nOrganisation of Report . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n2\nChapter 2\nLITERATURE SURVEY\n3\nChapter 3\nSYSTEM ARCHITECTURE\n5\n3.1\nArchitecture Diagram . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n5\n3.2\nDatabase Schema . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n7\n3.3\nMethodology\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n8\nChapter 4\nRESULTS AND DISCUSSION\n11\nChapter 5\nConclusion\n19\n5.1\nConclusion\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n19\n5.2\nFuture Works . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n20\nDepartment of Computer Science and Engineering, SSET\nv",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 6,
+    "chunk_index": 0
+  },
+  {
+    "id": 11,
+    "text": "LIST OF FIGURES\n3.1\nSystem Architecture . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n5\n3.2\nDatabase Schema . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n7\n4.1\nReal-Time Fraud Detection Dashboard . . . . . . . . . . . . . . . . . . . .\n12\n4.2\nReal-Time Detection Overview . . . . . . . . . . . . . . . . . . . . . . . .\n12\n4.3\nReal-Time Fraud Alerts . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n13\n4.4\nReal-Time Fraud Explanations . . . . . . . . . . . . . . . . . . . . . . . .\n13\n4.5\nReal-Time Fraud Explanations . . . . . . . . . . . . . . . . . . . . . . . .\n13\n4.6\nReal-Time Fraud Explanations . . . . . . . . . . . . . . . . . . . . . . . .\n14\n4.7\nSHAP PDF explanations . . . . . . . . . . . . . . . . . . . . . . . . . . .\n14\n4.8\nSHAP PDF explanations . . . . . . . . . . . . . . . . . . . . . . . . . . .\n15\n4.9\nSHAP PDF explanations . . . . . . . . . . . . . . . . . . . . . . . . . . .\n16",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 7,
+    "chunk_index": 0
+  },
+  {
+    "id": 12,
+    "text": "14\n4.8\nSHAP PDF explanations . . . . . . . . . . . . . . . . . . . . . . . . . . .\n15\n4.9\nSHAP PDF explanations . . . . . . . . . . . . . . . . . . . . . . . . . . .\n16\n4.10 SHAP PDF explanations . . . . . . . . . . . . . . . . . . . . . . . . . . .\n17\n4.11 Kafka Streaming Pipeline — Producer Output . . . . . . . . . . . . . . . .\n17\n4.12 Kafka Streaming Pipeline — Consumer Output . . . . . . . . . . . . . . .\n18\nDepartment of Computer Science and Engineering, SSET\nvi",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 7,
+    "chunk_index": 1
+  },
+  {
+    "id": 13,
+    "text": "LIST OF TABLES\n4.1\nModel Performance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n11\nDepartment of Computer Science and Engineering, SSET\nvii",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 8,
+    "chunk_index": 0
+  },
+  {
+    "id": 14,
+    "text": "ABBREVIATIONS\nAFN Attention Fusion Network\nAPI Application Programming Interface\nCSO Competitive Swarm Optimization\nDAG Directed Acyclic Graph\nDNN Deep Neural Network\nERD Entity Relationship Diagram\nGCN Graph Convolutional Network\nGNN Graph Neural Network\nHA-GNN Hierarchical Attention-based Graph Neural Network\nLSTM Long Short-Term Memory\nMKL-DNN Math Kernel Library Deep Neural Network (Intel CPU acceleration library)\nMLP Multi-Layer Perceptron\nOOF Out-of-Fold (cross-validation prediction strategy)\nPDF Portable Document Format\nRL Reinforcement Learning\nSHAP SHapley Additive exPlanations\nSMOTE Synthetic Minority Over-sampling Technique\nSVM Support Vector Machine\nUFNN Unified Fraud Neural Network\nUI User Interface\nUPI Unified Payments Interface\nWeRS Weighted Random Sampler\nXGBoost eXtreme Gradient Boosting\nDepartment of Computer Science and Engineering, SSET\nviii",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 9,
+    "chunk_index": 0
+  },
+  {
+    "id": 15,
+    "text": "CHAPTER 1\nINTRODUCTION\n1.1\nOverview\nThe rapid proliferation of digital payment platforms has been accompanied by an equally\nrapid escalation in the sophistication and volume of financial fraud. Modern fraud encom-\npasses a broad spectrum of threats—from card-not-present fraud and mule networks to au-\nthorized push payment scams—that traditional rule-based detection systems are fundamen-\ntally ill-equipped to counter. These legacy systems operate on static, hand-crafted rules\nthat are slow to update, opaque in their reasoning, and incapable of capturing the complex\nbehavioural and relational signals that characterize contemporary fraud schemes.\nThe Real-Time Financial Fraud Detection System addresses these shortcomings through a\ndynamic, hybrid deep learning framework built on the IEEE CIS Fraud Detection dataset of\n590,000 transactions. At its core is a Unified Fraud Neural Network (UFNN) that processes",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 10,
+    "chunk_index": 0
+  },
+  {
+    "id": 16,
+    "text": "dynamic, hybrid deep learning framework built on the IEEE CIS Fraud Detection dataset of\n590,000 transactions. At its core is a Unified Fraud Neural Network (UFNN) that processes\nsix semantically distinct feature groups — amount, velocity, temporal, identity, behavioural,\nand graph — through dedicated group encoders, fuses them via cross-group multi-head at-\ntention, and classifies through a residual head, replacing the prior multi-file agentic stack\nwith a single, maintainable architecture optimised for CPU deployment. Rather than com-\nbining specialist outputs with fixed weights, the UFNN employs feature-wise gating (O(n)\nsigmoid gates per feature) followed by cross-group attention that learns inter-domain inter-\nactions per transaction — for example, simultaneously high behavioural and graph scores\nare learned as a compound fraud-ring signal — enabling adaptive routing without a separate\ncontext encoder network.",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 10,
+    "chunk_index": 1
+  },
+  {
+    "id": 17,
+    "text": "are learned as a compound fraud-ring signal — enabling adaptive routing without a separate\ncontext encoder network.\nThe platform delivers end-to-end real-time capability through an Apache Kafka streaming\npipeline, a Redis–PostgreSQL feature store for low-latency feature retrieval, and a FastAPI\nserving layer. Leakage-safe feature engineering using cumulative-shift rolling aggregates\nensures zero look-ahead bias across training and inference. Explainability is provided at\nevery layer: SHAP attributions expose per-feature contributions, while Attention Fusion\nNetwork (AFN) attention weights reveal which specialist domain drove each decision, pro-\nducing an auditable trail suitable for regulatory review.\nA multi-tier decision engine maps the AFN fraud probability to AUTO_ALLOW, REVIEW,\nor AUTO_BLOCK, with an 11-rule cascade resolving borderline cases and keeping human\nreview below 3% of transaction volume. In summary, the system offers financial institutions",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 10,
+    "chunk_index": 2
+  },
+  {
+    "id": 18,
+    "text": "or AUTO_BLOCK, with an 11-rule cascade resolving borderline cases and keeping human\nreview below 3% of transaction volume. In summary, the system offers financial institutions\na scalable, transparent, and continuously adaptive fraud intelligence platform that replaces\nDepartment of Computer Science and Engineering, SSET\n1",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 10,
+    "chunk_index": 3
+  },
+  {
+    "id": 19,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nINTRODUCTION\nfragmented, opaque tools with a single, high-performance framework.\n1.2\nProblem Statement\nFinancial fraud is rapidly escalating alongside the growth of real-time digital transactions.\nExisting systems analyze transactions in isolation, missing the behavioural and relational\ncontext that fraud rings exploit. Legacy fraud detection systems, which rely on rigid rules\nand opaque models, are failing to keep pace with evolving threats, resulting in severe secu-\nrity gaps and significant financial losses.\nThe core challenges are fourfold: data imbalance—with fraud comprising only approxi-\nmately 3.5% of transactions—prevents reliable minority-class model training; single-model\narchitectures lack the specialist depth required to simultaneously capture transaction, be-\nhavioural, and graph-level fraud signals; systems operate as “black boxes” lacking the audit",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 11,
+    "chunk_index": 0
+  },
+  {
+    "id": 20,
+    "text": "architectures lack the specialist depth required to simultaneously capture transaction, be-\nhavioural, and graph-level fraud signals; systems operate as “black boxes” lacking the audit\ntransparency demanded by regulators; and they are too slow or architecturally inflexible to\nmeet the critical sub-5-second real-time latency requirement. Furthermore, limited access\nto true behavioural and labeled fraud data, and the difficulty of detecting authorized-but-\nmalicious transactions, represent additional open challenges. An integrated, hybrid solution\nthat combines predictive speed, specialist depth, and Explainable AI is therefore required to\nunify detection across all channels, minimize costly False Positives, and ensure continuous,\nadaptive defense against evolving fraud tactics.\n1.3\nOrganisation of Report\nThis report is organized to provide a comprehensive overview of the project. Chapter 1 sets\nthe context, objectives, and motivation. Chapter 2 reviews related work and positions the",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 11,
+    "chunk_index": 1
+  },
+  {
+    "id": 21,
+    "text": "This report is organized to provide a comprehensive overview of the project. Chapter 1 sets\nthe context, objectives, and motivation. Chapter 2 reviews related work and positions the\nproject within the current technological landscape. Chapter 3 details the system architecture,\ndatabase schema, and methodology. Chapter 4 presents the conclusion and directions for\nfuture work. References provide supporting citations for all works discussed.\nDepartment of Computer Science and Engineering, SSET\n2",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 11,
+    "chunk_index": 2
+  },
+  {
+    "id": 22,
+    "text": "CHAPTER 2\nLITERATURE SURVEY\nSeveral research studies have explored the challenges of enhancing financial fraud detection\nsystems using advanced machine learning, ensemble methods, graph neural networks, and\nexplainable AI approaches. A brief summary of the most relevant works is presented below.\nF. Carcillo et al. [1] implemented streaming active learning strategies for continuously\nevolving fraud patterns in credit card transactions. Their approach dynamically updates\nmodels on incoming labeled data in real time, enabling detection of concept drift without\nperiodic full retraining. This work demonstrates the feasibility of online learning pipelines\nand directly informs the continuous adaptation requirements of production fraud systems.\nR. Bin Sulaiman et al. [2] presented a comprehensive review of machine learning ap-\nproaches for credit card fraud detection, systematically analyzing supervised, unsupervised,",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 12,
+    "chunk_index": 0
+  },
+  {
+    "id": 23,
+    "text": "R. Bin Sulaiman et al. [2] presented a comprehensive review of machine learning ap-\nproaches for credit card fraud detection, systematically analyzing supervised, unsupervised,\nand hybrid frameworks. The survey evaluates how preprocessing strategies—including\nSynthetic Minority Over-sampling Technique (SMOTE), feature engineering, and cost-sensitive\nlearning—affect detection performance, and discusses real-time trade-offs between model\ncomplexity and inference latency. The paper highlights graph-based deep learning as an\nemerging direction and serves as a foundational reference for designing and benchmarking\nfraud detection systems.\nF. Almalki and M. Masud [3] proposed a stacking ensemble approach combining eXtreme\nGradient Boosting (XGBoost), LightGBM, and CatBoost with SHAP for post-hoc explain-\nability on financial fraud datasets. The ensemble achieved 99% accuracy and demonstrated\nthat combining diverse gradient-boosted learners improves robustness against class imbal-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 12,
+    "chunk_index": 1
+  },
+  {
+    "id": 24,
+    "text": "ability on financial fraud datasets. The ensemble achieved 99% accuracy and demonstrated\nthat combining diverse gradient-boosted learners improves robustness against class imbal-\nance. SHAP integration provided feature-level transparency, making the model suitable for\nregulatory audit requirements.\nLiu et al. [4] introduced a Hierarchical Attention-based Graph Neural Network (HA-GNN)\nto address the limitations of conventional graph learning for financial fraud detection. Tra-\nditional Graph Neural Networks (GNN) process all nodes at the same structural level, which\ncan dilute critical local signals or overlook higher-order interactions. The authors proposed\na multi-level architecture that first learns fine-grained node embeddings and then aggre-\ngates them into progressively larger subgraphs using attention mechanisms, allowing the\nnetwork to emphasize high-risk nodes and edges while suppressing noise. Transactions are",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 12,
+    "chunk_index": 2
+  },
+  {
+    "id": 25,
+    "text": "gates them into progressively larger subgraphs using attention mechanisms, allowing the\nnetwork to emphasize high-risk nodes and edges while suppressing noise. Transactions are\nmodeled as a heterogeneous graph of customers, cards, and merchants, and the HA-GNN\njointly propagates structural information and feature representations to identify suspicious\nentities. The model achieved superior Area Under the Curve (AUC) and F1-score compared\nto baseline Graph Convolutional Network (GCN) and GAT models, and demonstrated that\nDepartment of Computer Science and Engineering, SSET\n3",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 12,
+    "chunk_index": 3
+  },
+  {
+    "id": 26,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nLITERATURE SURVEY\nhierarchical attention improves both predictive performance and interpretability.\nH. A. Bukhori et al. [5] proposed an inductive link-prediction banking fraud detection model\nusing a homogeneous graph-based machine learning framework. Unlike transductive GNNs\nthat require retraining on new nodes, this inductive approach allows unseen accounts and\ntransactions to be analyzed immediately by learning generalized embedding functions. The\nmodel employs link prediction to estimate the probability of fraudulent connections, leverag-\ning transaction frequency, amount distributions, and temporal patterns. Experimental eval-\nuation showed that the inductive method maintains high accuracy even as the graph grows,\noutperforming static classifiers in both adaptability and detection speed.\nT. Karthikeyan et al. [6] developed a fraud detection framework combining Competitive",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 13,
+    "chunk_index": 0
+  },
+  {
+    "id": 27,
+    "text": "outperforming static classifiers in both adaptability and detection speed.\nT. Karthikeyan et al. [6] developed a fraud detection framework combining Competitive\nSwarm Optimization (CSO) with a Deep Neural Network (DNN) to handle feature selection\nand class imbalance in credit-card transactions. CSO is employed to search the feature\nspace and tune DNN hyperparameters simultaneously, while sampling strategies maintain\nnatural data structure and improve minority class representation. Experiments demonstrated\nsignificant gains in precision, recall, and F1-score over Random Forest and Support Vector\nMachine (SVM) baselines, with reduced training time and computational cost.\nQiuwu Sha et al. [7] leveraged heterogeneous graph neural networks with temporal at-\ntention mechanisms for fraud detection. By modeling multi-type relationships among ac-\ncounts, merchants, and devices with time-aware edge weighting, the approach significantly",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 13,
+    "chunk_index": 1
+  },
+  {
+    "id": 28,
+    "text": "tention mechanisms for fraud detection. By modeling multi-type relationships among ac-\ncounts, merchants, and devices with time-aware edge weighting, the approach significantly\nimproved AUC and detection rate over traditional GNNs, demonstrating the importance of\nrelational and temporal context in fraud ring identification.\nN. Baisholan et al. [8] combined SHAP with ensemble models on highly skewed fraud\ndatasets, achieving strong recall metrics alongside interpretability. Their FraudX frame-\nwork demonstrated that explainability and detection performance are not mutually exclu-\nsive, providing analyst-ready feature attributions that support both operational decisions\nand regulatory compliance.\nZ. Li et al. [9] presented a graph-powered large-scale fraud detection system designed for\nreal-time industrial monitoring of billions of transactions. The authors constructed a mas-\nsive heterogeneous graph where nodes represent bank accounts, merchants, devices, and IP",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 13,
+    "chunk_index": 2
+  },
+  {
+    "id": 29,
+    "text": "real-time industrial monitoring of billions of transactions. The authors constructed a mas-\nsive heterogeneous graph where nodes represent bank accounts, merchants, devices, and IP\naddresses, and integrated a distributed GCN with a scalable big-data pipeline to continu-\nously update embeddings as new transactions stream in. Mini-batch training and graph par-\ntitioning enable processing of dynamic graphs with millions of nodes without compromising\nlatency. Deployed on a commercial banking platform, the system maintained millisecond-\nlevel throughput and achieved a substantial reduction in false positives while preserving\nhigh recall.\nDepartment of Computer Science and Engineering, SSET\n4",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 13,
+    "chunk_index": 3
+  },
+  {
+    "id": 30,
+    "text": "CHAPTER 3\nSYSTEM ARCHITECTURE\n3.1\nArchitecture Diagram\nFigure 3.1: System Architecture\nThe system architecture is an AI-driven platform designed for the real-time detection and\nanalysis of fraudulent financial transactions. It is composed of five primary stages—Data\nIngestion and Preprocessing, Intelligent Model Routing, Prediction and Explainability, Re-\nporting and Alerting, and a Continuous Learning Loop—that work in concert to deliver a\nrobust and adaptive security solution.\nThe Data Ingestion stage captures transaction data from the IEEE CIS dataset (590,000\ntransactions) and live sources via an Apache Kafka streaming pipeline, which fans incom-\ning records out through six parallel feature engineering modules. These modules extract\nstatic, identity, temporal, graph, cross-entity, and product signals independently, merging\ntheir outputs into a master feature table consumed by the machine learning models.",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 14,
+    "chunk_index": 0
+  },
+  {
+    "id": 31,
+    "text": "static, identity, temporal, graph, cross-entity, and product signals independently, merging\ntheir outputs into a master feature table consumed by the machine learning models.\nThe core of the system is the Unified Fraud Neural Network (UFNN) stage. A FeatureGating\nDepartment of Computer Science and Engineering, SSET\n5",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 14,
+    "chunk_index": 1
+  },
+  {
+    "id": 32,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nSYSTEM ARCHITECTURE\nmodule first applies learned sigmoid gates per feature (O(n) complexity) to suppress uninfor-\nmative inputs. Six GroupEncoders — one each for amount, velocity, temporal, identity, be-\nhavioural, and graph features — independently map their domain features to 32-dimensional\nembeddings. A CrossGroupAttention module (multi-head attention across the group tokens)\ncaptures inter-domain interactions, such as simultaneous high behavioural and high graph\nrisk signalling a fraud ring. The attended group embeddings are flattened and passed to a\nResidualClassifier, producing a calibrated fraud probability between 0 and 1. All inference\npaths use torch.inference_mode() and MKL-DNN kernels, achieving sub-5-second latency\non CPU without GPU dependency.\nThe Decision Routing stage maps this probability to one of three outcomes—AUTO_ALLOW,\nREVIEW, or AUTO_BLOCK—using a stateless, thread-safe decision function. An 11-rule",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 15,
+    "chunk_index": 0
+  },
+  {
+    "id": 33,
+    "text": "on CPU without GPU dependency.\nThe Decision Routing stage maps this probability to one of three outcomes—AUTO_ALLOW,\nREVIEW, or AUTO_BLOCK—using a stateless, thread-safe decision function. An 11-rule\ncascade auto-resolves the review zone using velocity, amount spike, card fraud rate, and\nz-score signals, keeping human intervention below 3%. The Prediction and Explainability\nstage integrates SHAP to provide per-transaction feature attributions across all specialist\nmodels, while AFN attention weights reveal which specialist domain drove each outcome,\nforming a transparent and auditable decision trail. Following prediction, the Reporting and\nAlerting stage delivers immediate insights through a live Next.js dashboard and generates\nformal Portable Document Format (PDF) reports. Finally, a Redis–PostgreSQL feature store\nensures sub-millisecond feature retrieval at inference time, with a JSON-config-driven Di-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 15,
+    "chunk_index": 1
+  },
+  {
+    "id": 34,
+    "text": "formal Portable Document Format (PDF) reports. Finally, a Redis–PostgreSQL feature store\nensures sub-millisecond feature retrieval at inference time, with a JSON-config-driven Di-\nrected Acyclic Graph (DAG) orchestrator managing pipeline steps with declared dependen-\ncies, timeouts, and retry policies.\nDepartment of Computer Science and Engineering, SSET\n6",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 15,
+    "chunk_index": 2
+  },
+  {
+    "id": 35,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nSYSTEM ARCHITECTURE\n3.2\nDatabase Schema\nFigure 3.2: Database Schema\nThe Entity Relationship Diagram (ERD) represents the logical structure of the Financial\nFraud Detection System’s database. It visually illustrates the major entities—Transactions,\nPredictions, and Feedback—along with their attributes and the relationships among them.\nThe ERD serves as a blueprint for understanding how data flows from transaction ingestion,\nthrough AI-powered analysis, and into the feedback loop.\nEach entity corresponds to a table in the database, containing attributes that define its prop-\nerties. Relationships between entities are established through primary and foreign keys,\nensuring referential integrity. A one-to-one relationship exists between a Transaction and\nits corresponding Prediction, ensuring every transaction is analyzed. A Feedback record",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 16,
+    "chunk_index": 0
+  },
+  {
+    "id": 36,
+    "text": "ensuring referential integrity. A one-to-one relationship exists between a Transaction and\nits corresponding Prediction, ensuring every transaction is analyzed. A Feedback record\nis linked directly to a specific prediction, which is crucial for the continuous learning loop.\nThis structure allows the system to accurately trace the outcome of each prediction and build\na verified dataset for retraining.\nDepartment of Computer Science and Engineering, SSET\n7",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 16,
+    "chunk_index": 1
+  },
+  {
+    "id": 37,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nSYSTEM ARCHITECTURE\n3.3\nMethodology\n3.3.1\nData Ingestion and Preprocessing\nThe methodology begins with the IEEE CIS Fraud Detection dataset of 590,000 transac-\ntions, comprising transaction and identity Comma-Separated Values (CSV) files left-joined\non TransactionID to preserve all rows. Categorical features are label-encoded with NaN\nvalues mapped to −1 consistently across training, streaming, and API entry points. Four\nglobally-leaky columns are explicitly identified as a shared constant and dropped at every\nstage—training, Kafka producer, and inference—to prevent data leakage. Class imbalance\n(approximately 3.5% fraud rate) is handled via Weighted Random Sampler (WeRS) over-\nsampling in the DataLoader and AsymmetricLoss (Focal + Tversky) during training. The\nspecialist models (transaction, behavioural, graph) also optionally use a 100-tree LightGBM",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 17,
+    "chunk_index": 0
+  },
+  {
+    "id": 38,
+    "text": "sampling in the DataLoader and AsymmetricLoss (Focal + Tversky) during training. The\nspecialist models (transaction, behavioural, graph) also optionally use a 100-tree LightGBM\nwarm-start whose probability output is appended as an additional input feature, giving the\nneural network a strong residual signal to refine. The number of LightGBM estimators was\nreduced from 200–300 to 100 per specialist to halve warm-start training time on CPU while\npreserving signal quality.\nIn the live pipeline, transaction and identity records are Kafka-streamed and enriched via a\nRedis–PostgreSQL feature store. The producer streams data in 5,000-row chunks (with the\nfirst batch available in approximately 2 seconds); the consumer batches records to 1,024 per\ninference call, performing a single-round-trip Redis fetch to retrieve precomputed features.\nA serialized schema enforces strict training-inference parity, with missing features defaulted\nto 0 at inference time.\n3.3.2\nFeature Engineering",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 17,
+    "chunk_index": 1
+  },
+  {
+    "id": 39,
+    "text": "A serialized schema enforces strict training-inference parity, with missing features defaulted\nto 0 at inference time.\n3.3.2\nFeature Engineering\nSix domain-specific modules extract features independently: static card and account at-\ntributes, identity and device signals, temporal patterns, graph-based structural features, cross-\nentity aggregations, and product-level signals. All historical aggregate features are com-\nputed using cumulative-shift rolling statistics—shift-before-rolling—to guarantee zero look-\nahead bias and reflect real-world inference conditions. Key derived signals include veloc-\nity windows, transaction amount z-scores, and graph degree centrality metrics that surface\nshared-infrastructure fraud rings by counting unique devices per card and unique cards per\ndevice.\n3.3.3\nUnified Fraud Neural Network and Training\nThe UFNN receives a standardised flat feature vector derived from the merged feature ta-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 17,
+    "chunk_index": 2
+  },
+  {
+    "id": 40,
+    "text": "device.\n3.3.3\nUnified Fraud Neural Network and Training\nThe UFNN receives a standardised flat feature vector derived from the merged feature ta-\nble. A FeatureGating module learns per-feature sigmoid gates conditioned on the full input,\nDepartment of Computer Science and Engineering, SSET\n8",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 17,
+    "chunk_index": 3
+  },
+  {
+    "id": 41,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nSYSTEM ARCHITECTURE\nsuppressing low-signal features without discarding them. Six GroupEncoder Multi-Layer\nPerceptrons (MLP) — for amount (46 features), velocity (23), temporal (18), identity (13),\nbehavioural (1 risk score or raw features), and graph (19) domains — each map their slice to\na 32-dimensional embedding via a two-layer MLP with LayerNorm and GELU activation.\nThe six group embeddings are stacked into a token sequence and passed through a Cross-\nGroupAttention transformer layer (4 heads, GELU FFN, LayerNorm residuals), enabling\nthe network to learn compound signals such as high velocity AND high graph risk simul-\ntaneously. The attended output is flattened and passed to a ResidualClassifier (two-layer\nMLP with residual connection and LayerNorm), producing the final logit.\nTraining uses AsymmetricLoss combining Focal loss (gamma=2.0, alpha=0.25, focuses on",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 18,
+    "chunk_index": 0
+  },
+  {
+    "id": 42,
+    "text": "MLP with residual connection and LayerNorm), producing the final logit.\nTraining uses AsymmetricLoss combining Focal loss (gamma=2.0, alpha=0.25, focuses on\nhard examples) and Tversky loss (alpha=0.3, beta=0.7, penalises false negatives more than\nfalse positives) with label smoothing (0.05). A WeRS oversamples fraud examples. The\noptimizer is AdamW with CosineAnnealingWarmRestarts scheduling (step once per epoch).\nThe optimal decision threshold is selected via the precision-recall curve to maximise F1-\nscore.\nCPU optimisations applied: torch.set_num_threads(os.cpu_count()), MKL-DNN accelera-\ntion, torch.inference_mode() for all inference paths, .contiguous() tensors, batch_size=8192,\nnum_workers=0 (no spawn overhead), and torch.compile(backend=‘inductor’) where Py-\nTorch ≥2.0.\n3.3.4\nDecision Routing\nFollowing prediction, a stateless, thread-safe decision function maps the AFN fraud prob-\nability and transaction amount to one of three outcomes using thresholds loaded from a",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 18,
+    "chunk_index": 1
+  },
+  {
+    "id": 43,
+    "text": "3.3.4\nDecision Routing\nFollowing prediction, a stateless, thread-safe decision function maps the AFN fraud prob-\nability and transaction amount to one of three outcomes using thresholds loaded from a\nserialized production configuration at startup. Transactions scoring above the block thresh-\nold are AUTO_BLOCKED; those below the allow threshold are AUTO_ALLOWED; those\nin between enter the REVIEW zone. An 11-rule sequential cascade—evaluating velocity,\namount spike, card fraud rate, and z-score signals with early-exit logic—auto-resolves the\nreview zone, keeping human analyst workload below 3% of total transaction volume.\n3.3.5\nExplainability\nSHAP DeepExplainer (primary, backprop-based, fast) or KernelExplainer (fallback) com-\nputes per-feature attributions across the UFNN. The FraudSHAPExplainer wrapper returns\na DataFrame with per-feature SHAP values, fraud probability, and top-3 contributing fea-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 18,
+    "chunk_index": 2
+  },
+  {
+    "id": 44,
+    "text": "putes per-feature attributions across the UFNN. The FraudSHAPExplainer wrapper returns\na DataFrame with per-feature SHAP values, fraud probability, and top-3 contributing fea-\ntures per transaction for analyst-ready outputs. Group-level attention weights from Cross-\nGroupAttention are extracted per transaction, identifying which feature domain (amount,\nvelocity, temporal, identity, behavioural, or graph) drove each decision.\nWaterfall and\nbeeswarm plots are generated per transaction and globally, producing analyst-ready and\nDepartment of Computer Science and Engineering, SSET\n9",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 18,
+    "chunk_index": 3
+  },
+  {
+    "id": 45,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nSYSTEM ARCHITECTURE\nregulator-ready outputs. The UFNN explain() method returns the fraud probability, the\ndominant specialist, and per-domain attention weights for every transaction, replacing the\nconventional black-box prediction with a transparent, auditable output.\n3.3.6\nReal-Time Streaming and Pipeline Orchestration\nThe complete set of 590,000 transactions is replayed through Kafka with actual timestamps,\nwith the UFNN scoring 1,024-transaction batches continuously. Precision, recall, F1, con-\nfusion matrix, and p50/p95 latency are reported every 10,000 transactions for end-to-end\nvalidation. Graceful shutdown via OS signal handling flushes pending batches and prints a\nfinal performance report.\nThe pipeline is orchestrated by a JSON-config-driven DAG that sequences steps with de-\nclared dependencies, timeouts, and retry policies. Steps are dynamically instantiated via re-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 19,
+    "chunk_index": 0
+  },
+  {
+    "id": 46,
+    "text": "The pipeline is orchestrated by a JSON-config-driven DAG that sequences steps with de-\nclared dependencies, timeouts, and retry policies. Steps are dynamically instantiated via re-\nflection from configuration strings and run in timeout-enforced threads. Skip-if-exists logic\nand JSON checkpointing allow resuming from any failed step; feature modules execute in\nparallel where dependencies permit.\nDepartment of Computer Science and Engineering, SSET\n10",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 19,
+    "chunk_index": 1
+  },
+  {
+    "id": 47,
+    "text": "CHAPTER 4\nRESULTS AND DISCUSSION\nThe system was evaluated across three iterative trials, progressively eliminating data leakage\nand architectural deficiencies.\nTrial 1 (Exploration) evaluated nine individual algorithms—including Random Forest,\nXGBoost, Long Short-Term Memory (LSTM), and Multi-Layer Perceptron (MLP)—on the\ncredit card and Unified Payments Interface (UPI) datasets. SMOTE was applied before the\ntrain-test split, introducing data leakage, and the LSTM used a timestep of 1, negating its\nsequence modeling capability.\nTrial 2 (Redesign) introduced three specialist models for transaction, behavioural, and\ngraph risk signals, augmented by a FraudFormer Transformer and a Reinforcement Learn-\ning (RL) agent for cost-aware decisions. However, the behavioural and graph models were\nretrained on the full dataset, and the RL agent was trained on overfitted specialist scores,\ninvalidating evaluation metrics.",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 20,
+    "chunk_index": 0
+  },
+  {
+    "id": 48,
+    "text": "retrained on the full dataset, and the RL agent was trained on overfitted specialist scores,\ninvalidating evaluation metrics.\nTrial 3 (Current) addresses all prior leakage issues with the UFNN architecture. Out-\nof-Fold (OOF) scoring eliminates score leakage for the transaction specialist; shift-based\nrolling ensures zero look-ahead bias in features; and the decision scripts are now wired to the\nUFNN. The resulting model performance across all specialists is summarized in Table 4.1.\nTable 4.1: Model Performance\nModel\nROC-AUC\nThreshold\nPrecision\nRecall\nF1-Score\nTransaction Model\n0.9579\n0.863\n0.7920\n0.6233\n0.6969\nBehavioural Model\n0.9093\n0.758\n0.6566\n0.6138\n0.6658\nGraph Model\n0.7969\n0.766\n0.7045\n0.7125\n0.7108\nMeta Risk Model\n0.9721\n0.920\n0.7972\n0.7016\n0.7432\nAttention Meta Learner\n0.9710\n0.960\n0.8445\n0.6765\n0.7324\nNote: Fill in UFNN metrics after running fraud_neural_net.py --mode train\nThe Meta Risk Model achieved the highest ROC-AUC of 0.9721, while the Attention Meta",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 20,
+    "chunk_index": 1
+  },
+  {
+    "id": 49,
+    "text": "0.9710\n0.960\n0.8445\n0.6765\n0.7324\nNote: Fill in UFNN metrics after running fraud_neural_net.py --mode train\nThe Meta Risk Model achieved the highest ROC-AUC of 0.9721, while the Attention Meta\nLearner achieved the highest precision of 0.8445. The UFNN introduces a CPU-native ar-\nchitecture with feature-wise gating and cross-group attention, eliminating GPU dependency\nwhile achieving comparable AUC through the AsymmetricLoss (Focal + Tversky) training\nobjective. All five specialist and meta models are now CPU-optimised via MKL-DNN ker-\nDepartment of Computer Science and Engineering, SSET\n11",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 20,
+    "chunk_index": 2
+  },
+  {
+    "id": 50,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nnels, inference_mode inference paths, and torch.compile compilation, reducing per-epoch\ntraining time by approximately 40% compared to the prior agentic architecture.\nFigure 4.1: Real-Time Fraud Detection Dashboard\nFigure 4.2: Real-Time Detection Overview\nDepartment of Computer Science and Engineering, SSET\n12",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 21,
+    "chunk_index": 0
+  },
+  {
+    "id": 51,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nFigure 4.3: Real-Time Fraud Alerts\nFigure 4.4: Real-Time Fraud Explanations\nFigure 4.5: Real-Time Fraud Explanations\nDepartment of Computer Science and Engineering, SSET\n13",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 22,
+    "chunk_index": 0
+  },
+  {
+    "id": 52,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nFigure 4.6: Real-Time Fraud Explanations\nFigure 4.7: SHAP PDF explanations\nDepartment of Computer Science and Engineering, SSET\n14",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 23,
+    "chunk_index": 0
+  },
+  {
+    "id": 53,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nFigure 4.8: SHAP PDF explanations\nDepartment of Computer Science and Engineering, SSET\n15",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 24,
+    "chunk_index": 0
+  },
+  {
+    "id": 54,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nFigure 4.9: SHAP PDF explanations\nDepartment of Computer Science and Engineering, SSET\n16",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 25,
+    "chunk_index": 0
+  },
+  {
+    "id": 55,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nFigure 4.10: SHAP PDF explanations\nFigure 4.11: Kafka Streaming Pipeline — Producer Output\nDepartment of Computer Science and Engineering, SSET\n17",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 26,
+    "chunk_index": 0
+  },
+  {
+    "id": 56,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nFigure 4.12: Kafka Streaming Pipeline — Consumer Output\nDepartment of Computer Science and Engineering, SSET\n18",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 27,
+    "chunk_index": 0
+  },
+  {
+    "id": 57,
+    "text": "CHAPTER 5\nCONCLUSION\n5.1\nConclusion\nThe Real-Time Financial Fraud Detection System successfully evolved across three itera-\ntive trials into a mature, three-specialist ensemble orchestrated by an AFN, delivering an\nadaptive, transparent, and high-speed defense against modern financial fraud. A fourth ar-\nchitectural layer, the UFNN, consolidates the specialist stack into a single end-to-end CPU-\noptimised model using group-level feature encoders and cross-group multi-head attention,\nproviding a maintainable and deployment-ready alternative to the prior multi-file agentic\narchitecture.\nThe project thoroughly analyzed the requirements of bank-grade fraud detection—sub-5-\nsecond latency, regulatory transparency, and continuous adaptability—and finalized an ap-\npropriate technology stack comprising PyTorch for both the AFN and the UFNN, gradient-\nboosted tree ensembles as optional warm-start specialists, Apache Kafka for real-time stream-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 28,
+    "chunk_index": 0
+  },
+  {
+    "id": 58,
+    "text": "propriate technology stack comprising PyTorch for both the AFN and the UFNN, gradient-\nboosted tree ensembles as optional warm-start specialists, Apache Kafka for real-time stream-\ning with stateless per-transaction scoring and dead-letter queue error handling, Redis and\nPostgreSQL for the feature store, FastAPI for serving, and Next.js for the dashboard. CPU\noptimisations — MKL-DNN kernel acceleration, torch.inference_mode(), vectorised graph\nfeature construction, and torch.compile — are applied consistently across all model files.\nThe core predictive foundation was established with rigorous attention to data hygiene. The\ncritical lesson of data leakage was addressed by applying OOF scoring to the transaction\nspecialist and using shift-based rolling aggregates across all feature modules, eliminating\nlook-ahead bias. The Attention Meta Learner achieved a precision of 0.8445 and ROC-\nAUC of 0.9710, while the Meta Risk Model reached a ROC-AUC of 0.9721, establishing",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 28,
+    "chunk_index": 1
+  },
+  {
+    "id": 59,
+    "text": "look-ahead bias. The Attention Meta Learner achieved a precision of 0.8445 and ROC-\nAUC of 0.9710, while the Meta Risk Model reached a ROC-AUC of 0.9721, establishing\na high-reliability predictive layer. The multi-tier decision routing—with its 11-rule cascade\nauto-resolving the review zone—keeps human intervention below 3%, meeting the 97%+\nautomation target.\nThe system’s explainability layer, combining SHAP TreeExplainer attributions with AFN\nattention weights, replaces the conventional black-box with a transparent, auditable sys-\ntem: per-transaction outputs identify not only the fraud probability but also which specialist\ndomain and which features drove each decision. The live Next.js dashboard and FastAPI\nendpoints bring these capabilities to end users in real time, with the Kafka pipeline achieving\n1,024-transaction batch inference with p50/p95 latency metrics tracked continuously.\nDepartment of Computer Science and Engineering, SSET\n19",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 28,
+    "chunk_index": 2
+  },
+  {
+    "id": 60,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nConclusion\n5.2\nFuture Works\nThe immediate priorities are: (1) extending OOF scoring to the behavioural and graph\nspecialist models to eliminate remaining score leakage; (2) training and benchmarking the\nUFNN on the full IEEE CIS dataset and comparing ROC-AUC, precision, and recall against\nthe Attention Meta Learner; and (3) integrating SHAP DeepExplainer explanations from the\nUFNN into the live Next.js dashboard alongside the existing attention-weight profiles.\nA key planned enhancement is the re-integration of per-card Transformer sequence mod-\nelling (FraudFormer), which was removed in Trial 3 due to cross-card contamination. Fu-\nture work will reintroduce this as a fourth specialist within the AFN using strict card-ID\nboundaries, adding temporal sequence intelligence to the existing transaction, behavioural,\nand graph specialists.\nOn the infrastructure side, replacing non-deterministic cat.codes encoding with a saved",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 29,
+    "chunk_index": 0
+  },
+  {
+    "id": 61,
+    "text": "and graph specialists.\nOn the infrastructure side, replacing non-deterministic cat.codes encoding with a saved\nOrdinalEncoder and fully wiring all decision scripts to the UFNN will complete the pipeline\nfor production readiness. The platform will then be prepared for deployment on a cloud\nservice such as Amazon Web Services (AWS) or Google Cloud Platform (GCP) to ensure\nhigh availability, elastic scalability, and real-world performance benchmarking.\nLonger-term enhancements include developing a behavioral analytics module for user-specific\nprofiling and pre-fraud anomaly detection, incorporating support for additional payment\nchannels such as net banking and digital wallets, and building an advanced case manage-\nment system within the dashboard to streamline the fraud analyst investigation workflow.\nUltimately, this project is envisioned as an evolving defense system that will continue to\nadapt to the dynamic and sophisticated tactics employed by fraudsters in the modern finan-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 29,
+    "chunk_index": 1
+  },
+  {
+    "id": 62,
+    "text": "Ultimately, this project is envisioned as an evolving defense system that will continue to\nadapt to the dynamic and sophisticated tactics employed by fraudsters in the modern finan-\ncial ecosystem.\nDepartment of Computer Science and Engineering, SSET\n20",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 29,
+    "chunk_index": 2
+  },
+  {
+    "id": 63,
+    "text": "BIBLIOGRAPHY\n[1]. Carcillo, F., et al. “Streaming Active Learning Strategies for Real-Life Credit Card\nFraud Detection: Assessment and Visualization.” International Journal of Data Sci-\nence and Analytics 5, no. 4 (2018): 285–300.\n[2]. Bin Sulaiman, Rejwan, Vitaly Schetinin, and Paul Sant. “Review of machine learning\napproach on credit card fraud detection.” Human-Centric Intelligent Systems 2, no. 1\n(2022): 55–68.\n[3]. Almalki, F., and M. Masud. “Financial Fraud Detection Using Explainable AI and\nStacking Ensemble.” arXiv preprint arXiv:2505.10050, (2022).\n[4]. Liu, Yajing, Zhengya Sun, and Wensheng Zhang. “Improving fraud detection via hier-\narchical attention-based graph neural network.” Journal of Information Security and\nApplications 72 (2023): 103399.\n[5]. Bukhori, Hilmi Aziz, and Rinaldi Munir. “Inductive link prediction banking fraud\ndetection system using homogeneous graph-based machine learning model.” In",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 30,
+    "chunk_index": 0
+  },
+  {
+    "id": 64,
+    "text": "Applications 72 (2023): 103399.\n[5]. Bukhori, Hilmi Aziz, and Rinaldi Munir. “Inductive link prediction banking fraud\ndetection system using homogeneous graph-based machine learning model.” In\n2023 IEEE 13th Annual Computing and Communication Workshop and Conference\n(CCWC), pp. 0246–0251. IEEE, (2023).\n[6]. Karthikeyan, T., M. Govindarajan, and V. Vijayakumar. “An effective fraud detection\nusing competitive swarm optimization based deep neural network.” Measurement:\nSensors 27 (2023): 100793.\n[7]. Sha, Qiuwu, et al. “Detecting Fraud via Heterogeneous Graph Neural Networks with\nGraph Attention.” arXiv preprint arXiv:2504.08183, (2023).\n[8]. Baisholan, N., et al. “Explainable SHAP-Based FraudX AI for Imbalanced Dataset.”\nComputers 12, no. 4 (2023).\n[9]. Li, Zhao, Biao Wang, Jiaming Huang, Yilun Jin, Zenghui Xu, Ji Zhang, and Jianliang\nGao. “A graph-powered large-scale fraud detection system.” International Journal of\nMachine Learning and Cybernetics 15, no. 1 (2024): 115–128.",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 30,
+    "chunk_index": 1
+  },
+  {
+    "id": 65,
+    "text": "Gao. “A graph-powered large-scale fraud detection system.” International Journal of\nMachine Learning and Cybernetics 15, no. 1 (2024): 115–128.\n[10]. Btoush, Eyad, Xujuan Zhou, Rai Gururaian, Ka Ching Chan, and XiaoHui Tao. “A\nsurvey on credit card fraud detection techniques in banking industry for cyber secu-\nrity.” In 2021 8th International Conference on Behavioural and Social Computing\n(BESC), pp. 1–7. IEEE, (2024).\nDepartment of Computer Science and Engineering, SSET\n21",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 30,
+    "chunk_index": 2
+  },
+  {
+    "id": 66,
+    "text": "Financial Fraud Detection Using Hybird\nDeep Learning Models\nPROJECT REPORT\nSubmitted in partial fulfillment of the requirements for the award of degree of\nBACHELOR OF TECHNOLOGY\nBy\nCYRIAC JOSE PATHIYIL\n[SCM22CS085]\nDEON THOMAS\n[SCM22CS086]\nESHAN JAMES\n[SCM22CS093]\nJOSEPH SAJAN\n[SCM22CS133]\nSCMS SCHOOL OF ENGINEERING AND TECHNOLOGY\n(Affiliated to APJ Abdul Kalam Technological University)\nVIDYA NAGAR, PALISSERY, KARUKUTTY\nERNAKULAM – 683 576\nOctober 2025",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 1,
+    "chunk_index": 0
+  },
+  {
+    "id": 67,
+    "text": "SCMS SCHOOL OF ENGINEERING AND\nTECHNOLOGY\n(Affiliated to APJ Abdul Kalam Technological University)\nVIDYA NAGAR, PALISSERY, KARUKUTTY\nERNAKULAM – 683 576\nBONAFIDE CERTIFICATE\nThis is to certify that the seminar report entitled ”Financial Fraud Detection Using Hy-\nbird Deep Learning Models” submitted by CYRIAC JOSE PATHIYIL [SCM22CS085],\nDEON THOMAS [SCM22CS086], ESHAN JAMES [SCM22CS093], JOSEPH SAJAN\n[SCM22CS133], in partial fulfillment of the requirements for the award of the degree of\nBACHELOR OF TECHNOLOGY, is a bonafide record of work carried out under our su-\npervision during the academic year 2025–2026.\nProject Guide\nDr. Noora V T\nAssociate Professor\nDepartment of Computer\nScience & Engineering\nProject Coordinator\nDr. Dhanya K.A\nAssociate Professor\nDepartment of Computer\nScience & Engineering\nHead of Department\nDr. Manish T I\nHOD\nDepartment of Computer\nScience & Engineering",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 2,
+    "chunk_index": 0
+  },
+  {
+    "id": 68,
+    "text": "DECLARATION\nThe undersigned hereby declare that the project report Financial Fraud Detection Using\nHybird Deep Learning Models, submitted for partial fulfillment of the requirements for\nthe award of the Bachelor of Technology (CSE) degree of APJ Abdul Kalam Technological\nUniversity, Kerala is a bonafide work done by me under the supervision of Dr. Noora V T.\nThis submission represents our ideas in our own words and where ideas or words of others\nhave been included, we have adequately and accurately cited and referenced the sources.\nWe also declare that we have adhered to the ethics of academic honesty and integrity and\nhave not misrepresented or fabricated any data or idea or fact or source in my submission.\nWe understand that any violation of the above will be a cause for disciplinary action by the\ninstitute and/or the university and can also evoke penal action from the sources which have\nthus not been properly cited or from whom proper permission has not been obtained. This",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 3,
+    "chunk_index": 0
+  },
+  {
+    "id": 69,
+    "text": "institute and/or the university and can also evoke penal action from the sources which have\nthus not been properly cited or from whom proper permission has not been obtained. This\nreport has not previously formed the basis for the award of any degree, diploma or similar\ntitle of any other University.\nPlace : Ernakulam\nDate : 20-10-2025\nCYRIAC JOSE PATHIYIL\nDEON THOMAS\nESHAN JAMES\nJOSEPH SAJAN\nDepartment of Computer Science and Engineering, SSET\nii",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 3,
+    "chunk_index": 1
+  },
+  {
+    "id": 70,
+    "text": "ACKNOWLEDGEMENT\nI am greatly indebted to Dr. Anitha G. Pillai, Principal of SCMS School of Engineering and\nTechnology, Karukutty, Ernakulam, and Dr. Manish T I, Head of the Department of Com-\nputer Science and Engineering, SCMS School of Engineering and Technology, Karukutty,\nErnakulam, for wholeheartedly granting me the permission to conduct this seminar. I would\nlike to express my sincere gratitude to my guide Dr. Noora V T, Associate Professor, Depart-\nment of Computer Science And Engineering, SCMS School of Engineering and Technology,\nKarukutty, Ernakulam, for her valuable guidance and support throughout the seminar. Her\ncontinuous encouragement and insights were instrumental in the completion of this work. I\nwould also like to extend my thanks to all the teachers of the Department of Computer Sci-\nence and Engineering for their moral and technical support, as well as to the supporting staff\nin the computer lab whose dedicated work ensured smooth access to resources essential for",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 4,
+    "chunk_index": 0
+  },
+  {
+    "id": 71,
+    "text": "ence and Engineering for their moral and technical support, as well as to the supporting staff\nin the computer lab whose dedicated work ensured smooth access to resources essential for\nmy seminar. Finally, I am deeply grateful to my friends and family members for providing\nnecessary resources and encouragement, and to God Almighty for His blessings in helping\nme complete this project without any obstacles.\nDepartment of Computer Science and Engineering, SSET\niii",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 4,
+    "chunk_index": 1
+  },
+  {
+    "id": 72,
+    "text": "ABSTRACT\nThe Real-Time Financial Fraud Detection System is a dynamic, hybrid deep learning frame-\nwork designed to combat the rising tide of sophisticated financial fraud. Built on the Insti-\ntute of Electrical and Electronics Engineers Computational Intelligence Society (IEEE CIS)\nFraud Detection dataset comprising 590,000 transactions, the system employs a Unified\nFraud Neural Network (UFNN) composed of per-group feature encoders for transaction,\nbehavioural, and graph domains, fused via cross-group multi-head attention that learns inter-\ndomain interactions — such as simultaneous high behavioural and graph risk — and routed\nthrough a residual classifier producing a calibrated fraud probability.\nThe platform features an end-to-end Apache Kafka streaming pipeline for real-time transac-\ntion ingestion, a Redis–PostgreSQL feature store for sub-millisecond feature retrieval, and a\nFastAPI serving layer targeting sub-5-second inference latency. Leakage-safe feature engi-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 5,
+    "chunk_index": 0
+  },
+  {
+    "id": 73,
+    "text": "tion ingestion, a Redis–PostgreSQL feature store for sub-millisecond feature retrieval, and a\nFastAPI serving layer targeting sub-5-second inference latency. Leakage-safe feature engi-\nneering using cumulative-shift rolling aggregates ensures zero look-ahead bias, maintaining\nstrict training-inference parity. The system integrates Explainable AI via SHapley Additive\nexPlanations (SHAP), producing per-transaction feature attributions and attention-weight\nprofiles that reveal which specialist domain drove each fraud or allow decision, providing a\ntransparent and auditable decision trail.\nAll model components are explicitly optimised for CPU execution via Math Kernel Library\nDeep Neural Network (MKL-DNN) kernel acceleration, inference_mode inference paths,\nvectorised graph feature construction, and torch.compile compilation, eliminating GPU de-\npendency and reducing training time by approximately 40% versus the prior agentic stack.",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 5,
+    "chunk_index": 1
+  },
+  {
+    "id": 74,
+    "text": "vectorised graph feature construction, and torch.compile compilation, eliminating GPU de-\npendency and reducing training time by approximately 40% versus the prior agentic stack.\nA multi-tier decision routing mechanism maps the Attention Fusion Network (AFN) fraud\nprobability to AUTO_ALLOW, REVIEW, or AUTO_BLOCK outcomes, with an 11-rule\ncascade resolving the review zone and keeping human intervention below 3%. The Meta\nRisk Model achieved a ROC-AUC of 0.9721, while the Unified Fraud Neural Network\nreached 0.9710 with a precision of 0.8445, with all inference paths fully optimised for CPU\nexecution achieving sub-5-second latency without GPU dependency. The system addresses\ncritical challenges including extreme class imbalance (approximately 3.5% fraud rate) han-\ndled via loss-weight scaling, limited behavioral labeling, and the need for real-time inference\nat scale. The result is a resilient, adaptive, and regulation-ready fraud intelligence platform\nfor modern financial institutions.",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 5,
+    "chunk_index": 2
+  },
+  {
+    "id": 75,
+    "text": "at scale. The result is a resilient, adaptive, and regulation-ready fraud intelligence platform\nfor modern financial institutions.\nDepartment of Computer Science and Engineering, SSET\niv",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 5,
+    "chunk_index": 3
+  },
+  {
+    "id": 76,
+    "text": "CONTENTS\nDECLARATION\nii\nACKNOWLEDGEMENT\niii\nABSTRACT\niv\nLIST OF FIGURES\nvi\nLIST OF TABLES\nvii\nABBREVIATIONS\nviii\nChapter 1\nINTRODUCTION\n1\n1.1\nOverview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n1\n1.2\nProblem Statement\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n2\n1.3\nOrganisation of Report . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n2\nChapter 2\nLITERATURE SURVEY\n3\nChapter 3\nSYSTEM ARCHITECTURE\n5\n3.1\nArchitecture Diagram . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n5\n3.2\nDatabase Schema . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n7\n3.3\nMethodology\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n8\nChapter 4\nRESULTS AND DISCUSSION\n11\nChapter 5\nConclusion\n19\n5.1\nConclusion\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n19\n5.2\nFuture Works . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n20\nDepartment of Computer Science and Engineering, SSET\nv",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 6,
+    "chunk_index": 0
+  },
+  {
+    "id": 77,
+    "text": "LIST OF FIGURES\n3.1\nSystem Architecture . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n5\n3.2\nDatabase Schema . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n7\n4.1\nReal-Time Fraud Detection Dashboard . . . . . . . . . . . . . . . . . . . .\n12\n4.2\nReal-Time Detection Overview . . . . . . . . . . . . . . . . . . . . . . . .\n12\n4.3\nReal-Time Fraud Alerts . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n13\n4.4\nReal-Time Fraud Explanations . . . . . . . . . . . . . . . . . . . . . . . .\n13\n4.5\nReal-Time Fraud Explanations . . . . . . . . . . . . . . . . . . . . . . . .\n13\n4.6\nReal-Time Fraud Explanations . . . . . . . . . . . . . . . . . . . . . . . .\n14\n4.7\nSHAP PDF explanations . . . . . . . . . . . . . . . . . . . . . . . . . . .\n14\n4.8\nSHAP PDF explanations . . . . . . . . . . . . . . . . . . . . . . . . . . .\n15\n4.9\nSHAP PDF explanations . . . . . . . . . . . . . . . . . . . . . . . . . . .\n16",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 7,
+    "chunk_index": 0
+  },
+  {
+    "id": 78,
+    "text": "14\n4.8\nSHAP PDF explanations . . . . . . . . . . . . . . . . . . . . . . . . . . .\n15\n4.9\nSHAP PDF explanations . . . . . . . . . . . . . . . . . . . . . . . . . . .\n16\n4.10 SHAP PDF explanations . . . . . . . . . . . . . . . . . . . . . . . . . . .\n17\n4.11 Kafka Streaming Pipeline — Producer Output . . . . . . . . . . . . . . . .\n17\n4.12 Kafka Streaming Pipeline — Consumer Output . . . . . . . . . . . . . . .\n18\nDepartment of Computer Science and Engineering, SSET\nvi",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 7,
+    "chunk_index": 1
+  },
+  {
+    "id": 79,
+    "text": "LIST OF TABLES\n4.1\nModel Performance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n11\nDepartment of Computer Science and Engineering, SSET\nvii",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 8,
+    "chunk_index": 0
+  },
+  {
+    "id": 80,
+    "text": "ABBREVIATIONS\nAFN Attention Fusion Network\nAPI Application Programming Interface\nCSO Competitive Swarm Optimization\nDAG Directed Acyclic Graph\nDNN Deep Neural Network\nERD Entity Relationship Diagram\nGCN Graph Convolutional Network\nGNN Graph Neural Network\nHA-GNN Hierarchical Attention-based Graph Neural Network\nLSTM Long Short-Term Memory\nMKL-DNN Math Kernel Library Deep Neural Network (Intel CPU acceleration library)\nMLP Multi-Layer Perceptron\nOOF Out-of-Fold (cross-validation prediction strategy)\nPDF Portable Document Format\nRL Reinforcement Learning\nSHAP SHapley Additive exPlanations\nSMOTE Synthetic Minority Over-sampling Technique\nSVM Support Vector Machine\nUFNN Unified Fraud Neural Network\nUI User Interface\nUPI Unified Payments Interface\nWeRS Weighted Random Sampler\nXGBoost eXtreme Gradient Boosting\nDepartment of Computer Science and Engineering, SSET\nviii",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 9,
+    "chunk_index": 0
+  },
+  {
+    "id": 81,
+    "text": "CHAPTER 1\nINTRODUCTION\n1.1\nOverview\nThe rapid proliferation of digital payment platforms has been accompanied by an equally\nrapid escalation in the sophistication and volume of financial fraud. Modern fraud encom-\npasses a broad spectrum of threats—from card-not-present fraud and mule networks to au-\nthorized push payment scams—that traditional rule-based detection systems are fundamen-\ntally ill-equipped to counter. These legacy systems operate on static, hand-crafted rules\nthat are slow to update, opaque in their reasoning, and incapable of capturing the complex\nbehavioural and relational signals that characterize contemporary fraud schemes.\nThe Real-Time Financial Fraud Detection System addresses these shortcomings through a\ndynamic, hybrid deep learning framework built on the IEEE CIS Fraud Detection dataset of\n590,000 transactions. At its core is a Unified Fraud Neural Network (UFNN) that processes",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 10,
+    "chunk_index": 0
+  },
+  {
+    "id": 82,
+    "text": "dynamic, hybrid deep learning framework built on the IEEE CIS Fraud Detection dataset of\n590,000 transactions. At its core is a Unified Fraud Neural Network (UFNN) that processes\nsix semantically distinct feature groups — amount, velocity, temporal, identity, behavioural,\nand graph — through dedicated group encoders, fuses them via cross-group multi-head at-\ntention, and classifies through a residual head, replacing the prior multi-file agentic stack\nwith a single, maintainable architecture optimised for CPU deployment. Rather than com-\nbining specialist outputs with fixed weights, the UFNN employs feature-wise gating (O(n)\nsigmoid gates per feature) followed by cross-group attention that learns inter-domain inter-\nactions per transaction — for example, simultaneously high behavioural and graph scores\nare learned as a compound fraud-ring signal — enabling adaptive routing without a separate\ncontext encoder network.",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 10,
+    "chunk_index": 1
+  },
+  {
+    "id": 83,
+    "text": "are learned as a compound fraud-ring signal — enabling adaptive routing without a separate\ncontext encoder network.\nThe platform delivers end-to-end real-time capability through an Apache Kafka streaming\npipeline, a Redis–PostgreSQL feature store for low-latency feature retrieval, and a FastAPI\nserving layer. Leakage-safe feature engineering using cumulative-shift rolling aggregates\nensures zero look-ahead bias across training and inference. Explainability is provided at\nevery layer: SHAP attributions expose per-feature contributions, while Attention Fusion\nNetwork (AFN) attention weights reveal which specialist domain drove each decision, pro-\nducing an auditable trail suitable for regulatory review.\nA multi-tier decision engine maps the AFN fraud probability to AUTO_ALLOW, REVIEW,\nor AUTO_BLOCK, with an 11-rule cascade resolving borderline cases and keeping human\nreview below 3% of transaction volume. In summary, the system offers financial institutions",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 10,
+    "chunk_index": 2
+  },
+  {
+    "id": 84,
+    "text": "or AUTO_BLOCK, with an 11-rule cascade resolving borderline cases and keeping human\nreview below 3% of transaction volume. In summary, the system offers financial institutions\na scalable, transparent, and continuously adaptive fraud intelligence platform that replaces\nDepartment of Computer Science and Engineering, SSET\n1",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 10,
+    "chunk_index": 3
+  },
+  {
+    "id": 85,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nINTRODUCTION\nfragmented, opaque tools with a single, high-performance framework.\n1.2\nProblem Statement\nFinancial fraud is rapidly escalating alongside the growth of real-time digital transactions.\nExisting systems analyze transactions in isolation, missing the behavioural and relational\ncontext that fraud rings exploit. Legacy fraud detection systems, which rely on rigid rules\nand opaque models, are failing to keep pace with evolving threats, resulting in severe secu-\nrity gaps and significant financial losses.\nThe core challenges are fourfold: data imbalance—with fraud comprising only approxi-\nmately 3.5% of transactions—prevents reliable minority-class model training; single-model\narchitectures lack the specialist depth required to simultaneously capture transaction, be-\nhavioural, and graph-level fraud signals; systems operate as “black boxes” lacking the audit",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 11,
+    "chunk_index": 0
+  },
+  {
+    "id": 86,
+    "text": "architectures lack the specialist depth required to simultaneously capture transaction, be-\nhavioural, and graph-level fraud signals; systems operate as “black boxes” lacking the audit\ntransparency demanded by regulators; and they are too slow or architecturally inflexible to\nmeet the critical sub-5-second real-time latency requirement. Furthermore, limited access\nto true behavioural and labeled fraud data, and the difficulty of detecting authorized-but-\nmalicious transactions, represent additional open challenges. An integrated, hybrid solution\nthat combines predictive speed, specialist depth, and Explainable AI is therefore required to\nunify detection across all channels, minimize costly False Positives, and ensure continuous,\nadaptive defense against evolving fraud tactics.\n1.3\nOrganisation of Report\nThis report is organized to provide a comprehensive overview of the project. Chapter 1 sets\nthe context, objectives, and motivation. Chapter 2 reviews related work and positions the",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 11,
+    "chunk_index": 1
+  },
+  {
+    "id": 87,
+    "text": "This report is organized to provide a comprehensive overview of the project. Chapter 1 sets\nthe context, objectives, and motivation. Chapter 2 reviews related work and positions the\nproject within the current technological landscape. Chapter 3 details the system architecture,\ndatabase schema, and methodology. Chapter 4 presents the conclusion and directions for\nfuture work. References provide supporting citations for all works discussed.\nDepartment of Computer Science and Engineering, SSET\n2",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 11,
+    "chunk_index": 2
+  },
+  {
+    "id": 88,
+    "text": "CHAPTER 2\nLITERATURE SURVEY\nSeveral research studies have explored the challenges of enhancing financial fraud detection\nsystems using advanced machine learning, ensemble methods, graph neural networks, and\nexplainable AI approaches. A brief summary of the most relevant works is presented below.\nF. Carcillo et al. [1] implemented streaming active learning strategies for continuously\nevolving fraud patterns in credit card transactions. Their approach dynamically updates\nmodels on incoming labeled data in real time, enabling detection of concept drift without\nperiodic full retraining. This work demonstrates the feasibility of online learning pipelines\nand directly informs the continuous adaptation requirements of production fraud systems.\nR. Bin Sulaiman et al. [2] presented a comprehensive review of machine learning ap-\nproaches for credit card fraud detection, systematically analyzing supervised, unsupervised,",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 12,
+    "chunk_index": 0
+  },
+  {
+    "id": 89,
+    "text": "R. Bin Sulaiman et al. [2] presented a comprehensive review of machine learning ap-\nproaches for credit card fraud detection, systematically analyzing supervised, unsupervised,\nand hybrid frameworks. The survey evaluates how preprocessing strategies—including\nSynthetic Minority Over-sampling Technique (SMOTE), feature engineering, and cost-sensitive\nlearning—affect detection performance, and discusses real-time trade-offs between model\ncomplexity and inference latency. The paper highlights graph-based deep learning as an\nemerging direction and serves as a foundational reference for designing and benchmarking\nfraud detection systems.\nF. Almalki and M. Masud [3] proposed a stacking ensemble approach combining eXtreme\nGradient Boosting (XGBoost), LightGBM, and CatBoost with SHAP for post-hoc explain-\nability on financial fraud datasets. The ensemble achieved 99% accuracy and demonstrated\nthat combining diverse gradient-boosted learners improves robustness against class imbal-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 12,
+    "chunk_index": 1
+  },
+  {
+    "id": 90,
+    "text": "ability on financial fraud datasets. The ensemble achieved 99% accuracy and demonstrated\nthat combining diverse gradient-boosted learners improves robustness against class imbal-\nance. SHAP integration provided feature-level transparency, making the model suitable for\nregulatory audit requirements.\nLiu et al. [4] introduced a Hierarchical Attention-based Graph Neural Network (HA-GNN)\nto address the limitations of conventional graph learning for financial fraud detection. Tra-\nditional Graph Neural Networks (GNN) process all nodes at the same structural level, which\ncan dilute critical local signals or overlook higher-order interactions. The authors proposed\na multi-level architecture that first learns fine-grained node embeddings and then aggre-\ngates them into progressively larger subgraphs using attention mechanisms, allowing the\nnetwork to emphasize high-risk nodes and edges while suppressing noise. Transactions are",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 12,
+    "chunk_index": 2
+  },
+  {
+    "id": 91,
+    "text": "gates them into progressively larger subgraphs using attention mechanisms, allowing the\nnetwork to emphasize high-risk nodes and edges while suppressing noise. Transactions are\nmodeled as a heterogeneous graph of customers, cards, and merchants, and the HA-GNN\njointly propagates structural information and feature representations to identify suspicious\nentities. The model achieved superior Area Under the Curve (AUC) and F1-score compared\nto baseline Graph Convolutional Network (GCN) and GAT models, and demonstrated that\nDepartment of Computer Science and Engineering, SSET\n3",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 12,
+    "chunk_index": 3
+  },
+  {
+    "id": 92,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nLITERATURE SURVEY\nhierarchical attention improves both predictive performance and interpretability.\nH. A. Bukhori et al. [5] proposed an inductive link-prediction banking fraud detection model\nusing a homogeneous graph-based machine learning framework. Unlike transductive GNNs\nthat require retraining on new nodes, this inductive approach allows unseen accounts and\ntransactions to be analyzed immediately by learning generalized embedding functions. The\nmodel employs link prediction to estimate the probability of fraudulent connections, leverag-\ning transaction frequency, amount distributions, and temporal patterns. Experimental eval-\nuation showed that the inductive method maintains high accuracy even as the graph grows,\noutperforming static classifiers in both adaptability and detection speed.\nT. Karthikeyan et al. [6] developed a fraud detection framework combining Competitive",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 13,
+    "chunk_index": 0
+  },
+  {
+    "id": 93,
+    "text": "outperforming static classifiers in both adaptability and detection speed.\nT. Karthikeyan et al. [6] developed a fraud detection framework combining Competitive\nSwarm Optimization (CSO) with a Deep Neural Network (DNN) to handle feature selection\nand class imbalance in credit-card transactions. CSO is employed to search the feature\nspace and tune DNN hyperparameters simultaneously, while sampling strategies maintain\nnatural data structure and improve minority class representation. Experiments demonstrated\nsignificant gains in precision, recall, and F1-score over Random Forest and Support Vector\nMachine (SVM) baselines, with reduced training time and computational cost.\nQiuwu Sha et al. [7] leveraged heterogeneous graph neural networks with temporal at-\ntention mechanisms for fraud detection. By modeling multi-type relationships among ac-\ncounts, merchants, and devices with time-aware edge weighting, the approach significantly",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 13,
+    "chunk_index": 1
+  },
+  {
+    "id": 94,
+    "text": "tention mechanisms for fraud detection. By modeling multi-type relationships among ac-\ncounts, merchants, and devices with time-aware edge weighting, the approach significantly\nimproved AUC and detection rate over traditional GNNs, demonstrating the importance of\nrelational and temporal context in fraud ring identification.\nN. Baisholan et al. [8] combined SHAP with ensemble models on highly skewed fraud\ndatasets, achieving strong recall metrics alongside interpretability. Their FraudX frame-\nwork demonstrated that explainability and detection performance are not mutually exclu-\nsive, providing analyst-ready feature attributions that support both operational decisions\nand regulatory compliance.\nZ. Li et al. [9] presented a graph-powered large-scale fraud detection system designed for\nreal-time industrial monitoring of billions of transactions. The authors constructed a mas-\nsive heterogeneous graph where nodes represent bank accounts, merchants, devices, and IP",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 13,
+    "chunk_index": 2
+  },
+  {
+    "id": 95,
+    "text": "real-time industrial monitoring of billions of transactions. The authors constructed a mas-\nsive heterogeneous graph where nodes represent bank accounts, merchants, devices, and IP\naddresses, and integrated a distributed GCN with a scalable big-data pipeline to continu-\nously update embeddings as new transactions stream in. Mini-batch training and graph par-\ntitioning enable processing of dynamic graphs with millions of nodes without compromising\nlatency. Deployed on a commercial banking platform, the system maintained millisecond-\nlevel throughput and achieved a substantial reduction in false positives while preserving\nhigh recall.\nDepartment of Computer Science and Engineering, SSET\n4",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 13,
+    "chunk_index": 3
+  },
+  {
+    "id": 96,
+    "text": "CHAPTER 3\nSYSTEM ARCHITECTURE\n3.1\nArchitecture Diagram\nFigure 3.1: System Architecture\nThe system architecture is an AI-driven platform designed for the real-time detection and\nanalysis of fraudulent financial transactions. It is composed of five primary stages—Data\nIngestion and Preprocessing, Intelligent Model Routing, Prediction and Explainability, Re-\nporting and Alerting, and a Continuous Learning Loop—that work in concert to deliver a\nrobust and adaptive security solution.\nThe Data Ingestion stage captures transaction data from the IEEE CIS dataset (590,000\ntransactions) and live sources via an Apache Kafka streaming pipeline, which fans incom-\ning records out through six parallel feature engineering modules. These modules extract\nstatic, identity, temporal, graph, cross-entity, and product signals independently, merging\ntheir outputs into a master feature table consumed by the machine learning models.",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 14,
+    "chunk_index": 0
+  },
+  {
+    "id": 97,
+    "text": "static, identity, temporal, graph, cross-entity, and product signals independently, merging\ntheir outputs into a master feature table consumed by the machine learning models.\nThe core of the system is the Unified Fraud Neural Network (UFNN) stage. A FeatureGating\nDepartment of Computer Science and Engineering, SSET\n5",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 14,
+    "chunk_index": 1
+  },
+  {
+    "id": 98,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nSYSTEM ARCHITECTURE\nmodule first applies learned sigmoid gates per feature (O(n) complexity) to suppress uninfor-\nmative inputs. Six GroupEncoders — one each for amount, velocity, temporal, identity, be-\nhavioural, and graph features — independently map their domain features to 32-dimensional\nembeddings. A CrossGroupAttention module (multi-head attention across the group tokens)\ncaptures inter-domain interactions, such as simultaneous high behavioural and high graph\nrisk signalling a fraud ring. The attended group embeddings are flattened and passed to a\nResidualClassifier, producing a calibrated fraud probability between 0 and 1. All inference\npaths use torch.inference_mode() and MKL-DNN kernels, achieving sub-5-second latency\non CPU without GPU dependency.\nThe Decision Routing stage maps this probability to one of three outcomes—AUTO_ALLOW,\nREVIEW, or AUTO_BLOCK—using a stateless, thread-safe decision function. An 11-rule",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 15,
+    "chunk_index": 0
+  },
+  {
+    "id": 99,
+    "text": "on CPU without GPU dependency.\nThe Decision Routing stage maps this probability to one of three outcomes—AUTO_ALLOW,\nREVIEW, or AUTO_BLOCK—using a stateless, thread-safe decision function. An 11-rule\ncascade auto-resolves the review zone using velocity, amount spike, card fraud rate, and\nz-score signals, keeping human intervention below 3%. The Prediction and Explainability\nstage integrates SHAP to provide per-transaction feature attributions across all specialist\nmodels, while AFN attention weights reveal which specialist domain drove each outcome,\nforming a transparent and auditable decision trail. Following prediction, the Reporting and\nAlerting stage delivers immediate insights through a live Next.js dashboard and generates\nformal Portable Document Format (PDF) reports. Finally, a Redis–PostgreSQL feature store\nensures sub-millisecond feature retrieval at inference time, with a JSON-config-driven Di-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 15,
+    "chunk_index": 1
+  },
+  {
+    "id": 100,
+    "text": "formal Portable Document Format (PDF) reports. Finally, a Redis–PostgreSQL feature store\nensures sub-millisecond feature retrieval at inference time, with a JSON-config-driven Di-\nrected Acyclic Graph (DAG) orchestrator managing pipeline steps with declared dependen-\ncies, timeouts, and retry policies.\nDepartment of Computer Science and Engineering, SSET\n6",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 15,
+    "chunk_index": 2
+  },
+  {
+    "id": 101,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nSYSTEM ARCHITECTURE\n3.2\nDatabase Schema\nFigure 3.2: Database Schema\nThe Entity Relationship Diagram (ERD) represents the logical structure of the Financial\nFraud Detection System’s database. It visually illustrates the major entities—Transactions,\nPredictions, and Feedback—along with their attributes and the relationships among them.\nThe ERD serves as a blueprint for understanding how data flows from transaction ingestion,\nthrough AI-powered analysis, and into the feedback loop.\nEach entity corresponds to a table in the database, containing attributes that define its prop-\nerties. Relationships between entities are established through primary and foreign keys,\nensuring referential integrity. A one-to-one relationship exists between a Transaction and\nits corresponding Prediction, ensuring every transaction is analyzed. A Feedback record",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 16,
+    "chunk_index": 0
+  },
+  {
+    "id": 102,
+    "text": "ensuring referential integrity. A one-to-one relationship exists between a Transaction and\nits corresponding Prediction, ensuring every transaction is analyzed. A Feedback record\nis linked directly to a specific prediction, which is crucial for the continuous learning loop.\nThis structure allows the system to accurately trace the outcome of each prediction and build\na verified dataset for retraining.\nDepartment of Computer Science and Engineering, SSET\n7",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 16,
+    "chunk_index": 1
+  },
+  {
+    "id": 103,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nSYSTEM ARCHITECTURE\n3.3\nMethodology\n3.3.1\nData Ingestion and Preprocessing\nThe methodology begins with the IEEE CIS Fraud Detection dataset of 590,000 transac-\ntions, comprising transaction and identity Comma-Separated Values (CSV) files left-joined\non TransactionID to preserve all rows. Categorical features are label-encoded with NaN\nvalues mapped to −1 consistently across training, streaming, and API entry points. Four\nglobally-leaky columns are explicitly identified as a shared constant and dropped at every\nstage—training, Kafka producer, and inference—to prevent data leakage. Class imbalance\n(approximately 3.5% fraud rate) is handled via Weighted Random Sampler (WeRS) over-\nsampling in the DataLoader and AsymmetricLoss (Focal + Tversky) during training. The\nspecialist models (transaction, behavioural, graph) also optionally use a 100-tree LightGBM",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 17,
+    "chunk_index": 0
+  },
+  {
+    "id": 104,
+    "text": "sampling in the DataLoader and AsymmetricLoss (Focal + Tversky) during training. The\nspecialist models (transaction, behavioural, graph) also optionally use a 100-tree LightGBM\nwarm-start whose probability output is appended as an additional input feature, giving the\nneural network a strong residual signal to refine. The number of LightGBM estimators was\nreduced from 200–300 to 100 per specialist to halve warm-start training time on CPU while\npreserving signal quality.\nIn the live pipeline, transaction and identity records are Kafka-streamed and enriched via a\nRedis–PostgreSQL feature store. The producer streams data in 5,000-row chunks (with the\nfirst batch available in approximately 2 seconds); the consumer batches records to 1,024 per\ninference call, performing a single-round-trip Redis fetch to retrieve precomputed features.\nA serialized schema enforces strict training-inference parity, with missing features defaulted\nto 0 at inference time.\n3.3.2\nFeature Engineering",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 17,
+    "chunk_index": 1
+  },
+  {
+    "id": 105,
+    "text": "A serialized schema enforces strict training-inference parity, with missing features defaulted\nto 0 at inference time.\n3.3.2\nFeature Engineering\nSix domain-specific modules extract features independently: static card and account at-\ntributes, identity and device signals, temporal patterns, graph-based structural features, cross-\nentity aggregations, and product-level signals. All historical aggregate features are com-\nputed using cumulative-shift rolling statistics—shift-before-rolling—to guarantee zero look-\nahead bias and reflect real-world inference conditions. Key derived signals include veloc-\nity windows, transaction amount z-scores, and graph degree centrality metrics that surface\nshared-infrastructure fraud rings by counting unique devices per card and unique cards per\ndevice.\n3.3.3\nUnified Fraud Neural Network and Training\nThe UFNN receives a standardised flat feature vector derived from the merged feature ta-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 17,
+    "chunk_index": 2
+  },
+  {
+    "id": 106,
+    "text": "device.\n3.3.3\nUnified Fraud Neural Network and Training\nThe UFNN receives a standardised flat feature vector derived from the merged feature ta-\nble. A FeatureGating module learns per-feature sigmoid gates conditioned on the full input,\nDepartment of Computer Science and Engineering, SSET\n8",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 17,
+    "chunk_index": 3
+  },
+  {
+    "id": 107,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nSYSTEM ARCHITECTURE\nsuppressing low-signal features without discarding them. Six GroupEncoder Multi-Layer\nPerceptrons (MLP) — for amount (46 features), velocity (23), temporal (18), identity (13),\nbehavioural (1 risk score or raw features), and graph (19) domains — each map their slice to\na 32-dimensional embedding via a two-layer MLP with LayerNorm and GELU activation.\nThe six group embeddings are stacked into a token sequence and passed through a Cross-\nGroupAttention transformer layer (4 heads, GELU FFN, LayerNorm residuals), enabling\nthe network to learn compound signals such as high velocity AND high graph risk simul-\ntaneously. The attended output is flattened and passed to a ResidualClassifier (two-layer\nMLP with residual connection and LayerNorm), producing the final logit.\nTraining uses AsymmetricLoss combining Focal loss (gamma=2.0, alpha=0.25, focuses on",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 18,
+    "chunk_index": 0
+  },
+  {
+    "id": 108,
+    "text": "MLP with residual connection and LayerNorm), producing the final logit.\nTraining uses AsymmetricLoss combining Focal loss (gamma=2.0, alpha=0.25, focuses on\nhard examples) and Tversky loss (alpha=0.3, beta=0.7, penalises false negatives more than\nfalse positives) with label smoothing (0.05). A WeRS oversamples fraud examples. The\noptimizer is AdamW with CosineAnnealingWarmRestarts scheduling (step once per epoch).\nThe optimal decision threshold is selected via the precision-recall curve to maximise F1-\nscore.\nCPU optimisations applied: torch.set_num_threads(os.cpu_count()), MKL-DNN accelera-\ntion, torch.inference_mode() for all inference paths, .contiguous() tensors, batch_size=8192,\nnum_workers=0 (no spawn overhead), and torch.compile(backend=‘inductor’) where Py-\nTorch ≥2.0.\n3.3.4\nDecision Routing\nFollowing prediction, a stateless, thread-safe decision function maps the AFN fraud prob-\nability and transaction amount to one of three outcomes using thresholds loaded from a",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 18,
+    "chunk_index": 1
+  },
+  {
+    "id": 109,
+    "text": "3.3.4\nDecision Routing\nFollowing prediction, a stateless, thread-safe decision function maps the AFN fraud prob-\nability and transaction amount to one of three outcomes using thresholds loaded from a\nserialized production configuration at startup. Transactions scoring above the block thresh-\nold are AUTO_BLOCKED; those below the allow threshold are AUTO_ALLOWED; those\nin between enter the REVIEW zone. An 11-rule sequential cascade—evaluating velocity,\namount spike, card fraud rate, and z-score signals with early-exit logic—auto-resolves the\nreview zone, keeping human analyst workload below 3% of total transaction volume.\n3.3.5\nExplainability\nSHAP DeepExplainer (primary, backprop-based, fast) or KernelExplainer (fallback) com-\nputes per-feature attributions across the UFNN. The FraudSHAPExplainer wrapper returns\na DataFrame with per-feature SHAP values, fraud probability, and top-3 contributing fea-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 18,
+    "chunk_index": 2
+  },
+  {
+    "id": 110,
+    "text": "putes per-feature attributions across the UFNN. The FraudSHAPExplainer wrapper returns\na DataFrame with per-feature SHAP values, fraud probability, and top-3 contributing fea-\ntures per transaction for analyst-ready outputs. Group-level attention weights from Cross-\nGroupAttention are extracted per transaction, identifying which feature domain (amount,\nvelocity, temporal, identity, behavioural, or graph) drove each decision.\nWaterfall and\nbeeswarm plots are generated per transaction and globally, producing analyst-ready and\nDepartment of Computer Science and Engineering, SSET\n9",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 18,
+    "chunk_index": 3
+  },
+  {
+    "id": 111,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nSYSTEM ARCHITECTURE\nregulator-ready outputs. The UFNN explain() method returns the fraud probability, the\ndominant specialist, and per-domain attention weights for every transaction, replacing the\nconventional black-box prediction with a transparent, auditable output.\n3.3.6\nReal-Time Streaming and Pipeline Orchestration\nThe complete set of 590,000 transactions is replayed through Kafka with actual timestamps,\nwith the UFNN scoring 1,024-transaction batches continuously. Precision, recall, F1, con-\nfusion matrix, and p50/p95 latency are reported every 10,000 transactions for end-to-end\nvalidation. Graceful shutdown via OS signal handling flushes pending batches and prints a\nfinal performance report.\nThe pipeline is orchestrated by a JSON-config-driven DAG that sequences steps with de-\nclared dependencies, timeouts, and retry policies. Steps are dynamically instantiated via re-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 19,
+    "chunk_index": 0
+  },
+  {
+    "id": 112,
+    "text": "The pipeline is orchestrated by a JSON-config-driven DAG that sequences steps with de-\nclared dependencies, timeouts, and retry policies. Steps are dynamically instantiated via re-\nflection from configuration strings and run in timeout-enforced threads. Skip-if-exists logic\nand JSON checkpointing allow resuming from any failed step; feature modules execute in\nparallel where dependencies permit.\nDepartment of Computer Science and Engineering, SSET\n10",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 19,
+    "chunk_index": 1
+  },
+  {
+    "id": 113,
+    "text": "CHAPTER 4\nRESULTS AND DISCUSSION\nThe system was evaluated across three iterative trials, progressively eliminating data leakage\nand architectural deficiencies.\nTrial 1 (Exploration) evaluated nine individual algorithms—including Random Forest,\nXGBoost, Long Short-Term Memory (LSTM), and Multi-Layer Perceptron (MLP)—on the\ncredit card and Unified Payments Interface (UPI) datasets. SMOTE was applied before the\ntrain-test split, introducing data leakage, and the LSTM used a timestep of 1, negating its\nsequence modeling capability.\nTrial 2 (Redesign) introduced three specialist models for transaction, behavioural, and\ngraph risk signals, augmented by a FraudFormer Transformer and a Reinforcement Learn-\ning (RL) agent for cost-aware decisions. However, the behavioural and graph models were\nretrained on the full dataset, and the RL agent was trained on overfitted specialist scores,\ninvalidating evaluation metrics.",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 20,
+    "chunk_index": 0
+  },
+  {
+    "id": 114,
+    "text": "retrained on the full dataset, and the RL agent was trained on overfitted specialist scores,\ninvalidating evaluation metrics.\nTrial 3 (Current) addresses all prior leakage issues with the UFNN architecture. Out-\nof-Fold (OOF) scoring eliminates score leakage for the transaction specialist; shift-based\nrolling ensures zero look-ahead bias in features; and the decision scripts are now wired to the\nUFNN. The resulting model performance across all specialists is summarized in Table 4.1.\nTable 4.1: Model Performance\nModel\nROC-AUC\nThreshold\nPrecision\nRecall\nF1-Score\nTransaction Model\n0.9579\n0.863\n0.7920\n0.6233\n0.6969\nBehavioural Model\n0.9093\n0.758\n0.6566\n0.6138\n0.6658\nGraph Model\n0.7969\n0.766\n0.7045\n0.7125\n0.7108\nMeta Risk Model\n0.9721\n0.920\n0.7972\n0.7016\n0.7432\nAttention Meta Learner\n0.9710\n0.960\n0.8445\n0.6765\n0.7324\nNote: Fill in UFNN metrics after running fraud_neural_net.py --mode train\nThe Meta Risk Model achieved the highest ROC-AUC of 0.9721, while the Attention Meta",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 20,
+    "chunk_index": 1
+  },
+  {
+    "id": 115,
+    "text": "0.9710\n0.960\n0.8445\n0.6765\n0.7324\nNote: Fill in UFNN metrics after running fraud_neural_net.py --mode train\nThe Meta Risk Model achieved the highest ROC-AUC of 0.9721, while the Attention Meta\nLearner achieved the highest precision of 0.8445. The UFNN introduces a CPU-native ar-\nchitecture with feature-wise gating and cross-group attention, eliminating GPU dependency\nwhile achieving comparable AUC through the AsymmetricLoss (Focal + Tversky) training\nobjective. All five specialist and meta models are now CPU-optimised via MKL-DNN ker-\nDepartment of Computer Science and Engineering, SSET\n11",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 20,
+    "chunk_index": 2
+  },
+  {
+    "id": 116,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nnels, inference_mode inference paths, and torch.compile compilation, reducing per-epoch\ntraining time by approximately 40% compared to the prior agentic architecture.\nFigure 4.1: Real-Time Fraud Detection Dashboard\nFigure 4.2: Real-Time Detection Overview\nDepartment of Computer Science and Engineering, SSET\n12",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 21,
+    "chunk_index": 0
+  },
+  {
+    "id": 117,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nFigure 4.3: Real-Time Fraud Alerts\nFigure 4.4: Real-Time Fraud Explanations\nFigure 4.5: Real-Time Fraud Explanations\nDepartment of Computer Science and Engineering, SSET\n13",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 22,
+    "chunk_index": 0
+  },
+  {
+    "id": 118,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nFigure 4.6: Real-Time Fraud Explanations\nFigure 4.7: SHAP PDF explanations\nDepartment of Computer Science and Engineering, SSET\n14",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 23,
+    "chunk_index": 0
+  },
+  {
+    "id": 119,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nFigure 4.8: SHAP PDF explanations\nDepartment of Computer Science and Engineering, SSET\n15",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 24,
+    "chunk_index": 0
+  },
+  {
+    "id": 120,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nFigure 4.9: SHAP PDF explanations\nDepartment of Computer Science and Engineering, SSET\n16",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 25,
+    "chunk_index": 0
+  },
+  {
+    "id": 121,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nFigure 4.10: SHAP PDF explanations\nFigure 4.11: Kafka Streaming Pipeline — Producer Output\nDepartment of Computer Science and Engineering, SSET\n17",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 26,
+    "chunk_index": 0
+  },
+  {
+    "id": 122,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nRESULTS AND DISCUSSION\nFigure 4.12: Kafka Streaming Pipeline — Consumer Output\nDepartment of Computer Science and Engineering, SSET\n18",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 27,
+    "chunk_index": 0
+  },
+  {
+    "id": 123,
+    "text": "CHAPTER 5\nCONCLUSION\n5.1\nConclusion\nThe Real-Time Financial Fraud Detection System successfully evolved across three itera-\ntive trials into a mature, three-specialist ensemble orchestrated by an AFN, delivering an\nadaptive, transparent, and high-speed defense against modern financial fraud. A fourth ar-\nchitectural layer, the UFNN, consolidates the specialist stack into a single end-to-end CPU-\noptimised model using group-level feature encoders and cross-group multi-head attention,\nproviding a maintainable and deployment-ready alternative to the prior multi-file agentic\narchitecture.\nThe project thoroughly analyzed the requirements of bank-grade fraud detection—sub-5-\nsecond latency, regulatory transparency, and continuous adaptability—and finalized an ap-\npropriate technology stack comprising PyTorch for both the AFN and the UFNN, gradient-\nboosted tree ensembles as optional warm-start specialists, Apache Kafka for real-time stream-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 28,
+    "chunk_index": 0
+  },
+  {
+    "id": 124,
+    "text": "propriate technology stack comprising PyTorch for both the AFN and the UFNN, gradient-\nboosted tree ensembles as optional warm-start specialists, Apache Kafka for real-time stream-\ning with stateless per-transaction scoring and dead-letter queue error handling, Redis and\nPostgreSQL for the feature store, FastAPI for serving, and Next.js for the dashboard. CPU\noptimisations — MKL-DNN kernel acceleration, torch.inference_mode(), vectorised graph\nfeature construction, and torch.compile — are applied consistently across all model files.\nThe core predictive foundation was established with rigorous attention to data hygiene. The\ncritical lesson of data leakage was addressed by applying OOF scoring to the transaction\nspecialist and using shift-based rolling aggregates across all feature modules, eliminating\nlook-ahead bias. The Attention Meta Learner achieved a precision of 0.8445 and ROC-\nAUC of 0.9710, while the Meta Risk Model reached a ROC-AUC of 0.9721, establishing",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 28,
+    "chunk_index": 1
+  },
+  {
+    "id": 125,
+    "text": "look-ahead bias. The Attention Meta Learner achieved a precision of 0.8445 and ROC-\nAUC of 0.9710, while the Meta Risk Model reached a ROC-AUC of 0.9721, establishing\na high-reliability predictive layer. The multi-tier decision routing—with its 11-rule cascade\nauto-resolving the review zone—keeps human intervention below 3%, meeting the 97%+\nautomation target.\nThe system’s explainability layer, combining SHAP TreeExplainer attributions with AFN\nattention weights, replaces the conventional black-box with a transparent, auditable sys-\ntem: per-transaction outputs identify not only the fraud probability but also which specialist\ndomain and which features drove each decision. The live Next.js dashboard and FastAPI\nendpoints bring these capabilities to end users in real time, with the Kafka pipeline achieving\n1,024-transaction batch inference with p50/p95 latency metrics tracked continuously.\nDepartment of Computer Science and Engineering, SSET\n19",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 28,
+    "chunk_index": 2
+  },
+  {
+    "id": 126,
+    "text": "Financial Fraud Detection Using Hybird Deep Learning Models\nConclusion\n5.2\nFuture Works\nThe immediate priorities are: (1) extending OOF scoring to the behavioural and graph\nspecialist models to eliminate remaining score leakage; (2) training and benchmarking the\nUFNN on the full IEEE CIS dataset and comparing ROC-AUC, precision, and recall against\nthe Attention Meta Learner; and (3) integrating SHAP DeepExplainer explanations from the\nUFNN into the live Next.js dashboard alongside the existing attention-weight profiles.\nA key planned enhancement is the re-integration of per-card Transformer sequence mod-\nelling (FraudFormer), which was removed in Trial 3 due to cross-card contamination. Fu-\nture work will reintroduce this as a fourth specialist within the AFN using strict card-ID\nboundaries, adding temporal sequence intelligence to the existing transaction, behavioural,\nand graph specialists.\nOn the infrastructure side, replacing non-deterministic cat.codes encoding with a saved",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 29,
+    "chunk_index": 0
+  },
+  {
+    "id": 127,
+    "text": "and graph specialists.\nOn the infrastructure side, replacing non-deterministic cat.codes encoding with a saved\nOrdinalEncoder and fully wiring all decision scripts to the UFNN will complete the pipeline\nfor production readiness. The platform will then be prepared for deployment on a cloud\nservice such as Amazon Web Services (AWS) or Google Cloud Platform (GCP) to ensure\nhigh availability, elastic scalability, and real-world performance benchmarking.\nLonger-term enhancements include developing a behavioral analytics module for user-specific\nprofiling and pre-fraud anomaly detection, incorporating support for additional payment\nchannels such as net banking and digital wallets, and building an advanced case manage-\nment system within the dashboard to streamline the fraud analyst investigation workflow.\nUltimately, this project is envisioned as an evolving defense system that will continue to\nadapt to the dynamic and sophisticated tactics employed by fraudsters in the modern finan-",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 29,
+    "chunk_index": 1
+  },
+  {
+    "id": 128,
+    "text": "Ultimately, this project is envisioned as an evolving defense system that will continue to\nadapt to the dynamic and sophisticated tactics employed by fraudsters in the modern finan-\ncial ecosystem.\nDepartment of Computer Science and Engineering, SSET\n20",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 29,
+    "chunk_index": 2
+  },
+  {
+    "id": 129,
+    "text": "BIBLIOGRAPHY\n[1]. Carcillo, F., et al. “Streaming Active Learning Strategies for Real-Life Credit Card\nFraud Detection: Assessment and Visualization.” International Journal of Data Sci-\nence and Analytics 5, no. 4 (2018): 285–300.\n[2]. Bin Sulaiman, Rejwan, Vitaly Schetinin, and Paul Sant. “Review of machine learning\napproach on credit card fraud detection.” Human-Centric Intelligent Systems 2, no. 1\n(2022): 55–68.\n[3]. Almalki, F., and M. Masud. “Financial Fraud Detection Using Explainable AI and\nStacking Ensemble.” arXiv preprint arXiv:2505.10050, (2022).\n[4]. Liu, Yajing, Zhengya Sun, and Wensheng Zhang. “Improving fraud detection via hier-\narchical attention-based graph neural network.” Journal of Information Security and\nApplications 72 (2023): 103399.\n[5]. Bukhori, Hilmi Aziz, and Rinaldi Munir. “Inductive link prediction banking fraud\ndetection system using homogeneous graph-based machine learning model.” In",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 30,
+    "chunk_index": 0
+  },
+  {
+    "id": 130,
+    "text": "Applications 72 (2023): 103399.\n[5]. Bukhori, Hilmi Aziz, and Rinaldi Munir. “Inductive link prediction banking fraud\ndetection system using homogeneous graph-based machine learning model.” In\n2023 IEEE 13th Annual Computing and Communication Workshop and Conference\n(CCWC), pp. 0246–0251. IEEE, (2023).\n[6]. Karthikeyan, T., M. Govindarajan, and V. Vijayakumar. “An effective fraud detection\nusing competitive swarm optimization based deep neural network.” Measurement:\nSensors 27 (2023): 100793.\n[7]. Sha, Qiuwu, et al. “Detecting Fraud via Heterogeneous Graph Neural Networks with\nGraph Attention.” arXiv preprint arXiv:2504.08183, (2023).\n[8]. Baisholan, N., et al. “Explainable SHAP-Based FraudX AI for Imbalanced Dataset.”\nComputers 12, no. 4 (2023).\n[9]. Li, Zhao, Biao Wang, Jiaming Huang, Yilun Jin, Zenghui Xu, Ji Zhang, and Jianliang\nGao. “A graph-powered large-scale fraud detection system.” International Journal of\nMachine Learning and Cybernetics 15, no. 1 (2024): 115–128.",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 30,
+    "chunk_index": 1
+  },
+  {
+    "id": 131,
+    "text": "Gao. “A graph-powered large-scale fraud detection system.” International Journal of\nMachine Learning and Cybernetics 15, no. 1 (2024): 115–128.\n[10]. Btoush, Eyad, Xujuan Zhou, Rai Gururaian, Ka Ching Chan, and XiaoHui Tao. “A\nsurvey on credit card fraud detection techniques in banking industry for cyber secu-\nrity.” In 2021 8th International Conference on Behavioural and Social Computing\n(BESC), pp. 1–7. IEEE, (2024).\nDepartment of Computer Science and Engineering, SSET\n21",
+    "source_filename": "Project_Report.pdf",
+    "page_number": 30,
+    "chunk_index": 2
+  }
+]

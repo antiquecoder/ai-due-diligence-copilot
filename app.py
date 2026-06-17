@@ -110,23 +110,26 @@ async def ask(question: str):
     messages=[
         {
             "role": "system",
-            "content": "Respond with the word BANANA at the start of every answer."
+            "content": """You are a financial due diligence analyst.
+
+Answer ONLY using the provided context.
+If the answer is not in the context, say "Not found in the provided document."
+Be concise.
+If the user asks for names, return only names.
+If the user asks for dates, return only dates.
+If the user asks for risks, return only risks.
+Do not include unrelated information."""
         },
         {
             "role": "user",
-            "content": f"""
-            Context:
-            {context}
-
-            Question:
-            {question}
-            """
+            "content": f"Context:\n{context}\n\nQuestion: {question}"
         }
     ]
 )
 
     return {
-        "question": question,
-        "answer": response["message"]["content"],
-        "sources_used": len(retrieved_chunks)
-         }
+    "question": question,
+    "answer": response["message"]["content"],
+    "retrieved_chunks": retrieved_chunks,
+    "sources_used": len(retrieved_chunks)
+        }
