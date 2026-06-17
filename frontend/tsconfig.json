@@ -1,0 +1,11 @@
+{
+  "files": [],
+    "jsx": "react",
+    "jsx": "react",
+    "jsx": "react",
+    "jsx": "react",
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}

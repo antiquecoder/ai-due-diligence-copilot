@@ -4,10 +4,15 @@ from pypdf import PdfReader
 import os
 import faiss
 import ollama
+from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 
 from sentence_transformers import SentenceTransformer
 import numpy as np
+
+class QuestionRequest(BaseModel):
+    question: str
 
 GLOBAL_INDEX = None
 GLOBAL_CHUNK_DATA = []
@@ -19,6 +24,14 @@ def get_embedding(text):
     return model.encode(text).tolist()
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/upload")
 async def upload_pdf(file: UploadFile = File(...)):
@@ -81,7 +94,9 @@ async def upload_pdf(file: UploadFile = File(...)):
     }
 
 @app.post("/ask")
-async def ask(question: str):
+async def ask(req: QuestionRequest):
+
+    question = req.question
 
     # safety check
     if GLOBAL_INDEX is None or len(GLOBAL_CHUNK_DATA) == 0:
