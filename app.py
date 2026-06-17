@@ -97,10 +97,17 @@ async def ask(question: str):
 
     # 3. Get relevant chunks
     retrieved_chunks = []
-    for idx in I[0]:
-        if idx < len(GLOBAL_CHUNK_DATA):
-            retrieved_chunks.append(GLOBAL_CHUNK_DATA[idx]["text"])
+    retrieved_sources = []
 
+    for idx in I[0]:
+     if idx < len(GLOBAL_CHUNK_DATA):
+        retrieved_chunks.append(
+            GLOBAL_CHUNK_DATA[idx]["text"]
+        )
+
+        retrieved_sources.append(
+            GLOBAL_CHUNK_DATA[idx]["id"]
+        )
     # 4. Build context
     context = "\n\n".join(retrieved_chunks)
 
@@ -130,6 +137,109 @@ Do not include unrelated information."""
     return {
     "question": question,
     "answer": response["message"]["content"],
-    "retrieved_chunks": retrieved_chunks,
+    "source_chunks": retrieved_sources,
     "sources_used": len(retrieved_chunks)
+}
+
+@app.post("/summarize")
+async def summarize():
+
+    # Safety check
+    if len(GLOBAL_CHUNK_DATA) == 0:
+        return {
+            "error": "No document uploaded yet. Please upload a PDF first."
+        }
+
+    # Combine all chunks into one text
+    all_text = "\n\n".join(
+        [chunk["text"] for chunk in GLOBAL_CHUNK_DATA]
+    )
+
+    # Limit size to avoid context window issues
+    all_text = all_text[:12000]
+
+    # Send to Llama 3
+    response = ollama.chat(
+        model="llama3",
+        messages=[
+            {
+                "role": "system",
+                "content": """
+                You are a senior due diligence analyst.
+
+                Analyze the document and provide:
+
+                1. Executive Summary
+                2. Key Objectives
+                3. Technologies Used
+                4. Key Findings
+                5. Risks
+                6. Recommendations
+
+                Be concise and professional.
+                """
+            },
+            {
+                "role": "user",
+                "content": all_text
+            }
+        ]
+    )
+
+    return {
+        "summary": response["message"]["content"]
+    }
+
+@app.post("/risk-analysis")
+async def risk_analysis():
+
+    if len(GLOBAL_CHUNK_DATA) == 0:
+        return {
+            "error": "No document uploaded yet. Please upload a PDF first."
+        }
+    
+    all_text = "\n\n".join(
+        [chunk["text"] for chunk in GLOBAL_CHUNK_DATA]
+    )
+
+    all_text = all_text[:12000]
+
+    response = ollama.chat(
+        model="llama3",
+        options={
+            "temperature": 0.2
+        },
+        messages=[
+            {
+                "role": "system",
+                "content": """
+You are a senior due diligence analyst.
+
+Analyze the document and identify:
+
+1. Financial Risks
+2. Operational Risks
+3. Technical Risks
+4. Security Risks
+5. Compliance Risks
+
+For each risk:
+- Description
+- Severity (Low, Medium, High)
+
+If a category is not mentioned, say:
+'No significant risk identified.'
+
+Be concise and factual.
+"""
+            },
+            {
+                "role": "user",
+                "content": all_text
+            }
+        ]
+    )
+
+    return {
+        "risk_analysis": response["message"]["content"]    
         }
