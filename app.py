@@ -4,24 +4,25 @@ from pypdf import PdfReader
 import os
 import faiss
 
+
 from sentence_transformers import SentenceTransformer
 import numpy as np
+
+GLOBAL_INDEX = None
+GLOBAL_CHUNK_DATA = []
+
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
 def get_embedding(text):
     return model.encode(text).tolist()
 
-os.makedirs("uploads", exist_ok=True)
-
-GLOBAL_CHUNKS = []
-GLOBAL_CHUNK_DATA = []
-GLOBAL_INDEX = None
-
 app = FastAPI()
 
 @app.post("/upload")
 async def upload_pdf(file: UploadFile = File(...)):
+
+
 
     file_path = f"uploads/{file.filename}"
 
@@ -31,7 +32,6 @@ async def upload_pdf(file: UploadFile = File(...)):
     reader = PdfReader(file_path)
 
     text = ""
-
     for page in reader.pages:
         text += page.extract_text() or ""
 
@@ -42,9 +42,90 @@ async def upload_pdf(file: UploadFile = File(...)):
 
     chunks = splitter.split_text(text)
 
+    # ---------------------------
+    # STEP 4: EMBEDDINGS
+    # ---------------------------
+    embeddings = []
+    chunk_store = []
+
+    for i, chunk in enumerate(chunks):
+        emb = get_embedding(chunk)
+
+        embeddings.append(emb)
+        chunk_store.append({
+            "id": i,
+            "text": chunk
+        })
+
+    # ---------------------------
+    # STEP 5: FAISS INDEX
+    # ---------------------------
+    global GLOBAL_INDEX, GLOBAL_CHUNK_DATA
+
+    embeddings = np.array(embeddings).astype("float32")
+
+    dimension = embeddings.shape[1]
+
+    GLOBAL_INDEX = faiss.IndexFlatL2(dimension)
+    GLOBAL_INDEX.add(embeddings)
+
+    GLOBAL_CHUNK_DATA = chunk_store
+
     return {
-        "filename": file.filename,
-        "total_characters": len(text),
-        "total_chunks": len(chunks),
-        "first_chunk": chunks[0]
+       "filename": file.filename,
+       "total_characters": len(text),
+       "total_chunks": len(chunks),
+       "first_chunk": chunks[0] if chunks else None,
+       "faiss_size": GLOBAL_INDEX.ntotal if GLOBAL_INDEX else 0
+    }
+
+@app.post("/ask")
+async def ask(question: str):
+
+    # safety check
+    if GLOBAL_INDEX is None or len(GLOBAL_CHUNK_DATA) == 0:
+        return {
+            "error": "No document uploaded yet. Please upload a PDF first."
         }
+
+    # 1. Convert question → embedding
+    query_embedding = np.array([get_embedding(question)]).astype("float32")
+
+    # 2. Search FAISS for top matches
+    D, I = GLOBAL_INDEX.search(query_embedding, k=5)
+
+    # 3. Get relevant chunks
+    retrieved_chunks = []
+    for idx in I[0]:
+        if idx < len(GLOBAL_CHUNK_DATA):
+            retrieved_chunks.append(GLOBAL_CHUNK_DATA[idx]["text"])
+
+    # 4. Build context
+    context = "\n\n".join(retrieved_chunks)
+
+    # 5. Simple AI-style response (rule-based for now)
+    answer = f"""
+    You are a senior financial due diligence analyst.
+
+    QUESTION:
+    {question}
+
+    CONTEXT:
+    {context}
+
+    TASK:
+    Analyze the context and give a structured response.
+
+    FORMAT:
+    1. Direct Answer
+    2. Key Insights
+    3. Risks (if any)
+    4. Important Observations
+    5. Short Summary
+    """
+
+    return {
+        "question": question,
+        "answer": answer,
+        "sources_used": len(retrieved_chunks)
+    }
