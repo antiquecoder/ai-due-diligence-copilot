@@ -3,6 +3,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from pypdf import PdfReader
 import os
 import faiss
+import ollama
 
 
 from sentence_transformers import SentenceTransformer
@@ -104,28 +105,28 @@ async def ask(question: str):
     context = "\n\n".join(retrieved_chunks)
 
     # 5. Simple AI-style response (rule-based for now)
-    answer = f"""
-    You are a senior financial due diligence analyst.
+    response = ollama.chat(
+    model="llama3",
+    messages=[
+        {
+            "role": "system",
+            "content": "Respond with the word BANANA at the start of every answer."
+        },
+        {
+            "role": "user",
+            "content": f"""
+            Context:
+            {context}
 
-    QUESTION:
-    {question}
-
-    CONTEXT:
-    {context}
-
-    TASK:
-    Analyze the context and give a structured response.
-
-    FORMAT:
-    1. Direct Answer
-    2. Key Insights
-    3. Risks (if any)
-    4. Important Observations
-    5. Short Summary
-    """
+            Question:
+            {question}
+            """
+        }
+    ]
+)
 
     return {
         "question": question,
-        "answer": answer,
+        "answer": response["message"]["content"],
         "sources_used": len(retrieved_chunks)
-    }
+         }
