@@ -108,7 +108,7 @@ async def ask(req: QuestionRequest):
     query_embedding = np.array([get_embedding(question)]).astype("float32")
 
     # 2. Search FAISS for top matches
-    D, I = GLOBAL_INDEX.search(query_embedding, k=5)
+    D, I = GLOBAL_INDEX.search(query_embedding, k=10)
 
     # 3. Get relevant chunks
     retrieved_chunks = []
