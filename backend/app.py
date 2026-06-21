@@ -6,10 +6,15 @@ import faiss
 import ollama
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-
+import chromadb
 
 from sentence_transformers import SentenceTransformer
 import numpy as np
+
+client = chromadb.PersistentClient(path="./chroma_db")
+collection = client.get_or_create_collection(
+    name="documents"
+)
 
 class QuestionRequest(BaseModel):
     question: str
@@ -37,7 +42,32 @@ app.add_middleware(
 async def upload_pdf(file: UploadFile = File(...)):
 
 
+# STEP 4: EMBEDDINGS
+embeddings = []
+chunk_store = []
 
+for i, chunk in enumerate(chunks):
+    emb = get_embedding(chunk)
+
+    embeddings.append(emb)
+
+    chunk_store.append({
+        "id": i,
+        "text": chunk
+    })
+
+# Store in ChromaDB
+for item, emb in zip(chunk_store, embeddings):
+    collection.add(
+        ids=[f"{file.filename}_{item['id']}"],
+        documents=[item["text"]],
+        embeddings=[emb],
+        metadatas=[
+            {
+                "filename": file.filename
+            }
+        ]
+    )
     file_path = f"uploads/{file.filename}"
 
     with open(file_path, "wb") as buffer:
@@ -70,6 +100,16 @@ async def upload_pdf(file: UploadFile = File(...)):
             "id": i,
             "text": chunk
         })
+    for item in chunk_store:
+        collection.add(
+            ids=[str(item["id"])],
+            documents=[item["text"]],
+            metadatas=[
+                {
+                    "filename": file.filename
+                }
+            ]
+    )
 
     # ---------------------------
     # STEP 5: FAISS INDEX
@@ -258,3 +298,13 @@ Be concise and factual.
     return {
         "risk_analysis": response["message"]["content"]    
         }
+
+    @app.get("/documents")
+    async def documents():
+
+        data = collection.get()
+
+    return {
+        "total_chunks": len(data["ids"]),
+        "sample_ids": data["ids"][:5]
+    }   
